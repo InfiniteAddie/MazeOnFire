@@ -164,5 +164,7 @@ public class Main {
     public static void main(String[] args) {
         generateMaze(10, 0.5);
         printMaze(maze);
+
+        System.out.println("Test index: " + new Index(0, 9));
     }
 }
