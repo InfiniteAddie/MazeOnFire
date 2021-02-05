@@ -10,7 +10,7 @@ import java.util.Random;
  * 3 be fire
  * 
  * Agent starts at (0, 0) and the goal is (dim - 1, dim - 1).
- * 
+ * @author Aditya Dhawan, Annie Thach
  */
 public class Main {
     private static int[][] maze;
@@ -44,8 +44,66 @@ public class Main {
      * @return True if goal is reachable; false otherwise.
      */
     public boolean DFSMaze() {
-        
+
         return false;
+    }
+
+    /**
+     * BFS search for goal.
+     * @return True if goal is reachable; false otherwise.
+     */
+    public boolean BFSMaze() {
+        // TODO: Code here.
+        return false;
+    }
+
+    /**
+     * A* search for goal.
+     * @return True if goal is reachable; false otherwise.
+     */
+    public boolean AStarMaze() {
+        // TODO: Code here.
+        return false;
+    }
+
+    /**
+     * Helper method.
+     * Count neighbors of given (x, y) that are currently on fire.
+     * @param row - The row index of the current maze.
+     * @param col - The column in dex of the current maze.
+     * @return Number of neighbors that are on fire.
+     */
+    public static int countFireNeighbors(int row, int col) {
+        // TODO: Code here.
+        return 0;
+    }
+
+    /**
+     * Advances fire one step in current maze.
+     * The probability that a space will catch fire is defined as:
+     * 1 - (1 - q)^k
+     * @param q - Flammability rate; 0.0 < q < 1.0.
+     * TODO: Finish coding helper countFireNeighbors.
+     */
+    public void advanceFireOneStep(double q) {
+        Random random = new Random();
+
+        for(int row = 0; row < maze.length; row++) {
+            for(int col = 0; col < maze.length; col++) {
+                // If (x, y) is not on fire or an obstacle...
+                if(maze[row][col] != 3 && maze[row][col] != 2) {
+                    // Count number of neighbors of (x, y) that are on fire.
+                    // The higher the value, the likelier (x, y) will catch fire.
+                    int k = countFireNeighbors(row, col);
+                    double prob = 1 - Math.pow((1 - q), k);
+                    
+                    // Mark space on fire.
+                    if(random.nextDouble() <= prob) {
+                        maze[row][col] = 3;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -66,8 +124,9 @@ public class Main {
 
     /**
      * Prints maze for debugging.
+     * @param maze - Maze to print.
      */
-    public static void printMaze() {
+    public static void printMaze(int[][] maze) {
         for(int row = 0; row < maze.length; row++) {
             for(int col = 0; col < maze[row].length; col++) {
                 System.out.print(maze[row][col] + " ");
@@ -78,6 +137,6 @@ public class Main {
 
     public static void main(String[] args) {
         generateMaze(10, 0.5);
-        printMaze();
+        printMaze(maze);
     }
 }
