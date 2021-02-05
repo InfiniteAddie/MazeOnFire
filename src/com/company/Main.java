@@ -40,12 +40,38 @@ public class Main {
     }
 
     /**
+     * Runs DFS recursively on the maze, marking each spot as visited as it goes
+     * @param maze: the maze to traverse through
+     * @param row: indexes the current row
+     * @param col: indexes the current column
+     */
+    public static void DFS(int[][] maze, int row, int col) {
+        //If we step out of bounds, or we reach something that has already been visited or is an obstacle, stop there
+        if(row < 0 || col < 0 || row > maze.length - 1 || col > maze[0].length - 1) {
+            return;
+        }
+        if(maze[row][col] == 1 || maze[row][col] == 2) {
+            return;
+        }
+
+        maze[row][col] = 1;
+        DFS(maze, row, col + 1); //step right
+        DFS(maze, row, col - 1); //step left
+        DFS(maze, row + 1, col); //step down
+        DFS(maze, row - 1, col); //step up
+    }
+
+    /**
      * DFS search for goal.
      * @return True if goal is reachable; false otherwise.
      */
-    public boolean DFSMaze() {
-        
-        return false;
+    public static boolean DFSMaze() {
+        //start by running dfs() on a copy of the maze
+        int[][] mazeDFS = copyMaze();
+        DFS(mazeDFS, 0, 0);
+
+        //once dfs() is complete, check to see if the goal has been visited
+        return (mazeDFS[mazeDFS.length - 1][mazeDFS[0].length - 1] == 1);
     }
 
     /**
@@ -77,7 +103,11 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        generateMaze(10, 0.5);
+        generateMaze(50, 0.3);
         printMaze();
+
+        System.out.println();
+
+        System.out.println(DFSMaze());
     }
 }
