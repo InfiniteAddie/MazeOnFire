@@ -65,10 +65,13 @@ public class Main {
      * DFS search for goal.
      * @return True if goal is reachable; false otherwise.
      */
-<<<<<<< HEAD
-    public boolean DFSMaze() {
+    public static boolean DFSMaze() {
+        //start by running dfs() on a copy of the maze
+        int[][] mazeDFS = copyMaze();
+        DFS(mazeDFS, 0, 0);
 
-        return false;
+        //once dfs() is complete, check to see if the goal has been visited
+        return (mazeDFS[mazeDFS.length - 1][mazeDFS[0].length - 1] == 1);
     }
 
     /**
@@ -87,15 +90,6 @@ public class Main {
     public boolean AStarMaze() {
         // TODO: Code here.
         return false;
-=======
-    public static boolean DFSMaze() {
-        //start by running dfs() on a copy of the maze
-        int[][] mazeDFS = copyMaze();
-        DFS(mazeDFS, 0, 0);
-
-        //once dfs() is complete, check to see if the goal has been visited
-        return (mazeDFS[mazeDFS.length - 1][mazeDFS[0].length - 1] == 1);
->>>>>>> 083914fa64ca6ae6e1b0fced63205df570f24bec
     }
 
     /**
@@ -168,16 +162,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-<<<<<<< HEAD
         generateMaze(10, 0.5);
         printMaze(maze);
-=======
-        generateMaze(50, 0.3);
-        printMaze();
-
-        System.out.println();
-
-        System.out.println(DFSMaze());
->>>>>>> 083914fa64ca6ae6e1b0fced63205df570f24bec
     }
 }
