@@ -84,11 +84,12 @@ public class Main {
         int[][] mazeBFS = copyMaze();                   // Copy maze.
         Queue<Index> queue = new LinkedList<Index>();   // Define queue.
         mazeBFS[0][0] = 1;          // Mark (0, 0) explored.
-        queue.add(new Index(0, 0)); // Add index (0, 0) to queue.
+        queue.add(new Index(0, 0, -1)); // Add index (0, 0) to queue.
 
         // While queue is not empty ...
         while(!queue.isEmpty()) {
             Index item = queue.remove(); // Dequeue next item.
+            System.out.println(item); // DEBUG
             // If item is (maze.length - 1, maze.length - 1) ...
             if(item.getRow() == mazeBFS.length - 1 && item.getCol() == mazeBFS.length - 1) {
                 printMaze(mazeBFS); // DEBUG
@@ -96,39 +97,39 @@ public class Main {
             }
 
             // For all neighbors adjacent to item ... (item can have 0 - 4 viable neighbors)
-            // Check below item (row + 1, col).
+            // Check below item (col, row + 1).
             if(item.getRow() + 1 < mazeBFS.length) {    // Bound check.
-                // If neighbor not marked explored ...
+                // If neighbor not marked explored ... (and not an obstacle)
                 if(mazeBFS[item.getRow() + 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() + 1][item.getCol()] > 1)) {
                     mazeBFS[item.getRow() + 1][item.getCol()] = 1;          // Mark explored ...
-                    queue.add(new Index(item.getRow() + 1, item.getCol())); // Add neighbor to queue.
+                    queue.add(new Index(item.getRow() + 1, item.getCol(), -1)); // Add neighbor to queue.
                 }
             }
             
-            // Check right of item (row, col + 1).
+            // Check right of item (col + 1, row).
             if(item.getCol() + 1 < mazeBFS.length) {    // Bound check.
-                // If neighbor not marked explored ...
+                // If neighbor not marked explored ... (and not an obstacle)
                 if(mazeBFS[item.getRow()][item.getCol() + 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() + 1] > 1)) {
                     mazeBFS[item.getRow()][item.getCol() + 1] = 1;          // Mark explored ...
-                    queue.add(new Index(item.getRow(), item.getCol() + 1)); // Add neighbor to queue.
+                    queue.add(new Index(item.getRow(), item.getCol() + 1, -1)); // Add neighbor to queue.
                 }
             }
 
-            // Check above item (row - 1, col).
+            // Check above item (col, row - 1).
             if(item.getRow() - 1 >= 0) {    // Bound check.
-                // If neighbor not marked explored ...
+                // If neighbor not marked explored ... (and not an obstacle)
                 if(mazeBFS[item.getRow() - 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() - 1][item.getCol()] > 1)) {
                     mazeBFS[item.getRow() - 1][item.getCol()] = 1;          // Mark explored ...
-                    queue.add(new Index(item.getRow() - 1, item.getCol())); // Add neighbor to queue.
+                    queue.add(new Index(item.getRow() - 1, item.getCol(), -1)); // Add neighbor to queue.
                 }
             }
 
-            // Check left of item (row, col - 1).
+            // Check left of item (col - 1, row).
             if(item.getCol() - 1 >= 0) {    // Bound check.
-                // If neighbor not marked explored ...
+                // If neighbor not marked explored ... (and not an obstacle)
                 if(mazeBFS[item.getRow()][item.getCol() - 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() - 1] > 1)) {
                     mazeBFS[item.getRow()][item.getCol() - 1] = 1;          // Mark explored ...
-                    queue.add(new Index(item.getRow(), item.getCol() - 1)); // Add neighbor to queue.
+                    queue.add(new Index(item.getRow(), item.getCol() - 1, -1)); // Add neighbor to queue.
                 }
             }
         }

@@ -7,34 +7,34 @@ package com.company;
 public class Index {
     private int row;
     private int col;
-    private double distanceFromGoal;
+    private double weight;
 
     /**
      * Constructor method.
      * @param row - Row of index.
      * @param col - Column of index.
      */
-    public Index(int row, int col) {
+    public Index(int row, int col, double weight) {
         this.row = row;
         this.col = col;
-        this.distanceFromGoal = 0;
+        this.weight = weight;
     }
 
     /**
-     * toString method for printing Index object.
+     * toString method for printing Index object in (col, row) to match (x, y).
      * @return String representation of Index object.
      */
     @Override
     public String toString() {
-        return "(" + row + ", " + col + ")";
+        return "(" + col + ", " + row + ")";
     }
 
     /**
      * Setter method for distance from goal.
-     * @param distanceFromGoal - The distance from goal.
+     * @param weight - The distance from goal.
      */
-    public void setDistanceFromGoal(double distanceFromGoal) {
-        this.distanceFromGoal = distanceFromGoal;
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Index {
      * Getter method for distance from goal.
      * @return Distance from goal.
      */
-    public double getDistanceFromGoal() {
-        return distanceFromGoal;
+    public double getWeight() {
+        return weight;
     }
 }
