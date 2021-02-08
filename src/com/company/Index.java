@@ -7,6 +7,7 @@ package com.company;
 public class Index {
     private int row;
     private int col;
+    private double distanceFromGoal;
 
     /**
      * Constructor method.
@@ -16,6 +17,7 @@ public class Index {
     public Index(int row, int col) {
         this.row = row;
         this.col = col;
+        this.distanceFromGoal = 0;
     }
 
     /**
@@ -25,6 +27,14 @@ public class Index {
     @Override
     public String toString() {
         return "(" + row + ", " + col + ")";
+    }
+
+    /**
+     * Setter method for distance from goal.
+     * @param distanceFromGoal - The distance from goal.
+     */
+    public void setDistanceFromGoal(double distanceFromGoal) {
+        this.distanceFromGoal = distanceFromGoal;
     }
 
     /**
@@ -41,5 +51,13 @@ public class Index {
      */
     public int getCol() {
         return col;
+    }
+
+    /**
+     * Getter method for distance from goal.
+     * @return Distance from goal.
+     */
+    public double getDistanceFromGoal() {
+        return distanceFromGoal;
     }
 }
