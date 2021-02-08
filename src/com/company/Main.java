@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 /**
@@ -78,8 +80,59 @@ public class Main {
      * BFS search for goal.
      * @return True if goal is reachable; false otherwise.
      */
-    public boolean BFSMaze() {
-        // TODO: Code here.
+    public static boolean BFSMaze() {
+        int[][] mazeBFS = copyMaze();                   // Copy maze.
+        Queue<Index> queue = new LinkedList<Index>();   // Define queue.
+        mazeBFS[0][0] = 1;          // Mark (0, 0) explored.
+        queue.add(new Index(0, 0)); // Add index (0, 0) to queue.
+
+        // While queue is not empty ...
+        while(!queue.isEmpty()) {
+            Index item = queue.remove(); // Dequeue next item.
+            // If item is (maze.length - 1, maze.length - 1) ...
+            if(item.getRow() == mazeBFS.length - 1 && item.getCol() == mazeBFS.length - 1) {
+                printMaze(mazeBFS); // DEBUG
+                return true;    // Reached goal; return.
+            }
+
+            // For all neighbors adjacent to item ... (item can have 0 - 4 viable neighbors)
+            // Check below item (row + 1, col).
+            if(item.getRow() + 1 < mazeBFS.length) {    // Bound check.
+                // If neighbor not marked explored ...
+                if(mazeBFS[item.getRow() + 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() + 1][item.getCol()] > 1)) {
+                    mazeBFS[item.getRow() + 1][item.getCol()] = 1;          // Mark explored ...
+                    queue.add(new Index(item.getRow() + 1, item.getCol())); // Add neighbor to queue.
+                }
+            }
+            
+            // Check right of item (row, col + 1).
+            if(item.getCol() + 1 < mazeBFS.length) {    // Bound check.
+                // If neighbor not marked explored ...
+                if(mazeBFS[item.getRow()][item.getCol() + 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() + 1] > 1)) {
+                    mazeBFS[item.getRow()][item.getCol() + 1] = 1;          // Mark explored ...
+                    queue.add(new Index(item.getRow(), item.getCol() + 1)); // Add neighbor to queue.
+                }
+            }
+
+            // Check above item (row - 1, col).
+            if(item.getRow() - 1 >= 0) {    // Bound check.
+                // If neighbor not marked explored ...
+                if(mazeBFS[item.getRow() - 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() - 1][item.getCol()] > 1)) {
+                    mazeBFS[item.getRow() - 1][item.getCol()] = 1;          // Mark explored ...
+                    queue.add(new Index(item.getRow() - 1, item.getCol())); // Add neighbor to queue.
+                }
+            }
+
+            // Check left of item (row, col - 1).
+            if(item.getCol() - 1 >= 0) {    // Bound check.
+                // If neighbor not marked explored ...
+                if(mazeBFS[item.getRow()][item.getCol() - 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() - 1] > 1)) {
+                    mazeBFS[item.getRow()][item.getCol() - 1] = 1;          // Mark explored ...
+                    queue.add(new Index(item.getRow(), item.getCol() - 1)); // Add neighbor to queue.
+                }
+            }
+        }
+        printMaze(mazeBFS); // DEBUG
         return false;
     }
 
@@ -162,9 +215,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        generateMaze(10, 0.5);
+        generateMaze(10, 0.3);
         printMaze(maze);
-
-        System.out.println("Test index: " + new Index(0, 9));
+        System.out.println();
+        System.out.println(BFSMaze());
     }
 }
