@@ -1,8 +1,6 @@
 package com.company;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Let...
@@ -79,21 +77,83 @@ public class Main {
     /**
      * BFS search for goal.
      * @return True if goal is reachable; false otherwise.
+     * /TODO: Think about how we can utilize distance from source to backtrack from goal and obtain the shortest path.
+     * /TODO: (ideas): HashMap that stores information on a particular spot in the maze, and points to a parent (seems wack tbh)
+     * /TODO: (ideas): for every part of the maze that has a 1, have that spot in a parallel matrix be equal to the distance from the source
      */
-    public static boolean BFSMaze() {
+    public static ArrayList<Index> BFSMaze() {
         int[][] mazeBFS = copyMaze();                   // Copy maze.
         Queue<Index> queue = new LinkedList<Index>();   // Define queue.
         mazeBFS[0][0] = 1;          // Mark (0, 0) explored.
-        queue.add(new Index(0, 0, -1)); // Add index (0, 0) to queue.
+        queue.add(new Index(0, 0, 0, null)); // Add index (0, 0) to queue.
+
+        Index[][] indexMaze = new Index[maze.length][maze[0].length];
+        indexMaze[0][0] = new Index(0, 0, 0, null);
 
         // While queue is not empty ...
         while(!queue.isEmpty()) {
             Index item = queue.remove(); // Dequeue next item.
-            System.out.println(item); // DEBUG
+            //System.out.println(item); // DEBUG
             // If item is (maze.length - 1, maze.length - 1) ...
             if(item.getRow() == mazeBFS.length - 1 && item.getCol() == mazeBFS.length - 1) {
+
+                for(int i = 0; i < indexMaze.length; i ++) {
+                    for(int j = 0; j < indexMaze[i].length; j ++) {
+                        System.out.print(indexMaze[i][j] + "\t\t");
+                    }
+                    System.out.println();
+                }
+
+                ArrayList<Index> shortestPath = new ArrayList<Index>(); //list must be reversed before returning
+                Index curr = indexMaze[indexMaze.length - 1][indexMaze[0].length - 1];
+                shortestPath.add(curr);
+
+                // /TODO: Fix an issue causing an infinite loop
+                while(curr.getRow() != 0 && curr.getCol() != 0) {
+                    System.out.println(curr); //DEBUG
+
+                    //check left neighbor
+                    if(curr.getRow() - 1 >= 0) { //bound check
+                        if(indexMaze[curr.getRow() - 1][curr.getCol()] != null) { //null check
+                            if(indexMaze[curr.getRow() - 1][curr.getCol()].getDistance() < curr.getDistance()) {
+                                curr = indexMaze[curr.getRow() - 1][curr.getCol()];
+                            }
+                        }
+                    }
+
+                    //check right neighbor
+                    else if(curr.getRow() + 1 < indexMaze.length) { //bound check
+                        if(indexMaze[curr.getRow() + 1][curr.getCol()] != null) { //null check
+                            if(indexMaze[curr.getRow() + 1][curr.getCol()].getDistance() < curr.getDistance()) {
+                                curr = indexMaze[curr.getRow() + 1][curr.getCol()];
+                            }
+                        }
+                    }
+
+                    //check up neighbor
+                    else if(curr.getCol() - 1 >= 0) { //bound check
+                        if(indexMaze[curr.getRow()][curr.getCol() - 1] != null) { //null check
+                            if(indexMaze[curr.getRow()][curr.getCol() - 1].getDistance() < curr.getDistance()) {
+                                curr = indexMaze[curr.getRow()][curr.getCol() - 1];
+                            }
+                        }
+                    }
+
+                    //check down neighbor
+                    else if(curr.getCol() + 1 < indexMaze.length) { //bound check
+                        if(indexMaze[curr.getRow()][curr.getCol() + 1] != null) { //null check
+                            if(indexMaze[curr.getRow()][curr.getCol() + 1].getDistance() < curr.getDistance()) {
+                                curr = indexMaze[curr.getRow()][curr.getCol() + 1];
+                            }
+                        }
+                    }
+
+                    shortestPath.add(curr);
+                }
+                Collections.reverse(shortestPath);
+
                 printMaze(mazeBFS); // DEBUG
-                return true;    // Reached goal; return.
+                return shortestPath;    // Reached goal; return.
             }
 
             // For all neighbors adjacent to item ... (item can have 0 - 4 viable neighbors)
@@ -102,7 +162,8 @@ public class Main {
                 // If neighbor not marked explored ... (and not an obstacle)
                 if(mazeBFS[item.getRow() + 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() + 1][item.getCol()] > 1)) {
                     mazeBFS[item.getRow() + 1][item.getCol()] = 1;          // Mark explored ...
-                    queue.add(new Index(item.getRow() + 1, item.getCol(), -1)); // Add neighbor to queue.
+                    indexMaze[item.getRow() + 1][item.getCol()] = new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item);
+                    queue.add(new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
             }
             
@@ -111,7 +172,8 @@ public class Main {
                 // If neighbor not marked explored ... (and not an obstacle)
                 if(mazeBFS[item.getRow()][item.getCol() + 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() + 1] > 1)) {
                     mazeBFS[item.getRow()][item.getCol() + 1] = 1;          // Mark explored ...
-                    queue.add(new Index(item.getRow(), item.getCol() + 1, -1)); // Add neighbor to queue.
+                    indexMaze[item.getRow()][item.getCol() + 1] = new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item);
+                    queue.add(new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
             }
 
@@ -120,7 +182,8 @@ public class Main {
                 // If neighbor not marked explored ... (and not an obstacle)
                 if(mazeBFS[item.getRow() - 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() - 1][item.getCol()] > 1)) {
                     mazeBFS[item.getRow() - 1][item.getCol()] = 1;          // Mark explored ...
-                    queue.add(new Index(item.getRow() - 1, item.getCol(), -1)); // Add neighbor to queue.
+                    indexMaze[item.getRow() - 1][item.getCol()] = new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item);
+                    queue.add(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
             }
 
@@ -129,12 +192,13 @@ public class Main {
                 // If neighbor not marked explored ... (and not an obstacle)
                 if(mazeBFS[item.getRow()][item.getCol() - 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() - 1] > 1)) {
                     mazeBFS[item.getRow()][item.getCol() - 1] = 1;          // Mark explored ...
-                    queue.add(new Index(item.getRow(), item.getCol() - 1, -1)); // Add neighbor to queue.
+                    indexMaze[item.getRow()][item.getCol() - 1] = new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item);
+                    queue.add(new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
             }
         }
         printMaze(mazeBFS); // DEBUG
-        return false;
+        return null;
     }
 
     /**

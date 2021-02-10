@@ -7,17 +7,19 @@ package com.company;
 public class Index {
     private int row;
     private int col;
-    private double weight;
+    private int dist;
+    private Index parent;
 
     /**
      * Constructor method.
      * @param row - Row of index.
      * @param col - Column of index.
      */
-    public Index(int row, int col, double weight) {
+    public Index(int row, int col, int dist, Index parent) {
         this.row = row;
         this.col = col;
-        this.weight = weight;
+        this.dist = dist;
+        this.parent = parent;
     }
 
     /**
@@ -31,10 +33,10 @@ public class Index {
 
     /**
      * Setter method for distance from goal.
-     * @param weight - The distance from goal.
+     * @param dist - The distance from goal.
      */
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setDist(int dist) {
+        this.dist = dist;
     }
 
     /**
@@ -57,7 +59,15 @@ public class Index {
      * Getter method for distance from goal.
      * @return Distance from goal.
      */
-    public double getWeight() {
-        return weight;
+    public int getDistance() {
+        return dist;
+    }
+
+    /**
+     * Getter method for parent of index.
+     * @return Parent index of index.
+     */
+    public Index getParent() {
+        return parent;
     }
 }
