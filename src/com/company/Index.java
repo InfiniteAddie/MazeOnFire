@@ -28,7 +28,8 @@ public class Index {
      */
     @Override
     public String toString() {
-        return "(" + col + ", " + row + ")";
+        return "(" + row + ", " + col + ")";
+        //return "(" + dist + ")"; //debug
     }
 
     /**

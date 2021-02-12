@@ -96,63 +96,77 @@ public class Main {
             //System.out.println(item); // DEBUG
             // If item is (maze.length - 1, maze.length - 1) ...
             if(item.getRow() == mazeBFS.length - 1 && item.getCol() == mazeBFS.length - 1) {
-
+                /*
                 for(int i = 0; i < indexMaze.length; i ++) {
                     for(int j = 0; j < indexMaze[i].length; j ++) {
-                        System.out.print(indexMaze[i][j] + "\t\t");
+                        System.out.print(indexMaze[i][j] + " ");
                     }
                     System.out.println();
-                }
+                }*/
+                printMaze(mazeBFS); // DEBUG
 
-                ArrayList<Index> shortestPath = new ArrayList<Index>(); //list must be reversed before returning
-                Index curr = indexMaze[indexMaze.length - 1][indexMaze[0].length - 1];
-                shortestPath.add(curr);
+                ArrayList<Index> shortestPath = new ArrayList<Index>();
+                shortestPath.add(indexMaze[indexMaze.length - 1][indexMaze[indexMaze.length - 1].length - 1]);
 
-                // /TODO: Fix an issue causing an infinite loop
-                while(curr.getRow() != 0 && curr.getCol() != 0) {
-                    System.out.println(curr); //DEBUG
+                int i = indexMaze.length - 1;
+                int j = indexMaze[i].length - 1;
+                while(i >= 0 && j >= 0) {
+                    //check if loop has reached start node
+                    if(i == 0 && j == 0) {
+                        break;
+                    }
 
-                    //check left neighbor
-                    if(curr.getRow() - 1 >= 0) { //bound check
-                        if(indexMaze[curr.getRow() - 1][curr.getCol()] != null) { //null check
-                            if(indexMaze[curr.getRow() - 1][curr.getCol()].getDistance() < curr.getDistance()) {
-                                curr = indexMaze[curr.getRow() - 1][curr.getCol()];
+                    //check if left is within bounds
+                    if(j - 1 >= 0) {
+                        //check if left is not null
+                        if(indexMaze[i][j - 1] != null) {
+                            //check if dist value of left is less than dist value at current index
+                            if(indexMaze[i][j - 1].getDistance() < indexMaze[i][j].getDistance()) {
+                                j --; //move to this index
+                                shortestPath.add(indexMaze[i][j]);
                             }
                         }
                     }
 
-                    //check right neighbor
-                    else if(curr.getRow() + 1 < indexMaze.length) { //bound check
-                        if(indexMaze[curr.getRow() + 1][curr.getCol()] != null) { //null check
-                            if(indexMaze[curr.getRow() + 1][curr.getCol()].getDistance() < curr.getDistance()) {
-                                curr = indexMaze[curr.getRow() + 1][curr.getCol()];
+                    //check if up is within bounds
+                    if(i - 1 >= 0) {
+                        //check if up is not null
+                        if(indexMaze[i - 1][j] !=null) {
+                            //check if dist value of up is less than dist value at current index
+                            if(indexMaze[i - 1][j].getDistance() < indexMaze[i][j].getDistance()) {
+                                i --; //move to this index
+                                shortestPath.add(indexMaze[i][j]);
                             }
                         }
                     }
 
-                    //check up neighbor
-                    else if(curr.getCol() - 1 >= 0) { //bound check
-                        if(indexMaze[curr.getRow()][curr.getCol() - 1] != null) { //null check
-                            if(indexMaze[curr.getRow()][curr.getCol() - 1].getDistance() < curr.getDistance()) {
-                                curr = indexMaze[curr.getRow()][curr.getCol() - 1];
+                    //check if right is within bounds
+                    if(j + 1 < indexMaze[j].length) {
+                        //check if right is not null
+                        if(indexMaze[i][j + 1] != null) {
+                            //check if dist value of right is less than dist value at current index
+                            if(indexMaze[i][j + 1].getDistance() < indexMaze[i][j].getDistance()) {
+                                j ++; //move to this index
+                                shortestPath.add(indexMaze[i][j]);
                             }
                         }
                     }
 
-                    //check down neighbor
-                    else if(curr.getCol() + 1 < indexMaze.length) { //bound check
-                        if(indexMaze[curr.getRow()][curr.getCol() + 1] != null) { //null check
-                            if(indexMaze[curr.getRow()][curr.getCol() + 1].getDistance() < curr.getDistance()) {
-                                curr = indexMaze[curr.getRow()][curr.getCol() + 1];
+                    //check if down is within bounds
+                    if(i + 1 < indexMaze.length) {
+                        //check if down is not null
+                        if(indexMaze[i + 1][j] != null) {
+                            //check if dist value of down is less than dist value at current index
+                            if(indexMaze[i + 1][j].getDistance() < indexMaze[i][j].getDistance()) {
+                                i ++; //move to this index
+                                shortestPath.add(indexMaze[i][j]);
                             }
                         }
                     }
 
-                    shortestPath.add(curr);
+                    //loop should continue until starting node is reached
                 }
                 Collections.reverse(shortestPath);
-
-                printMaze(mazeBFS); // DEBUG
                 return shortestPath;    // Reached goal; return.
             }
 
