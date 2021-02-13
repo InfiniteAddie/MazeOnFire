@@ -216,11 +216,67 @@ public class Main {
     }
 
     /**
-     * A* search for goal.
+     * Helper method to check neighbors & add to queue.
+     * @param item - Current item.
+     * @param queue - The queue to add neighbors to.
+     */
+    private static void AStarCheckNeighbors(Index item, PriorityQueue<Index> queue) {
+        Index goal = new Index(maze.length - 1, maze.length -1, 0, null);
+
+        // Check neighbor below item. (row + 1, col)
+        if(item.getRow() + 1 < maze.length - 1 && maze[item.getRow() + 1][item.getCol()] == 0) {    // Bound check & not visited.
+            Index neighbor = new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item);
+            neighbor.setScore(item.getDistance() /* TODO: + dist(neighbor, goal) */);
+            queue.add(neighbor);
+        }
+
+        // Check neighbor right of item. (row, col + 1)
+        if(item.getCol() + 1 < maze.length - 1 && maze[item.getRow()][item.getCol() + 1] == 0) {    // Bound check & not visited.
+            Index neighbor = new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item);
+            neighbor.setScore(item.getDistance() /* TODO: + dist(neighbor, goal) */);
+            queue.add(neighbor);
+        }
+
+        // Check neighbor above item. (row - 1, col)
+        if(item.getRow() - 1 >= 0 && maze[item.getRow() - 1][item.getCol()] == 0) {    // Bound check & not visited.
+            Index neighbor = new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item);
+            neighbor.setScore(item.getDistance() /* TODO: + dist(neighbor, goal) */);
+            queue.add(neighbor);
+        }
+
+        // Check neighbor left of item. (row, col - 1)
+        if(item.getCol() - 1 >= 0 && maze[item.getRow()][item.getCol() - 1] == 0) {    // Bound check & not visited.
+            Index neighbor = new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item);
+            neighbor.setScore(item.getDistance() /* TODO: + dist(neighbor, goal) */);
+            queue.add(neighbor);
+        }
+    }
+
+    /**
+     * A* search for goal. Priority queue is a min heap.
+     * Priority queue items has priority f(n) = g(n) + h(n).
+     * g(n) is distance travelled from start to n.
+     * h(n) is an estimated distance from n to goal.
      * @return True if goal is reachable; false otherwise.
      */
-    public boolean AStarMaze() {
-        // TODO: Code here.
+    public static boolean AStarMaze() {
+        // TODO: Finish coding.
+        PriorityQueue<Index> minHeap = new PriorityQueue<Index>();
+        minHeap.add(new Index(0, 0, 0, null));  // Add start to queue.
+        
+        // While heap is not empty ...
+        while(!(minHeap.isEmpty())) {
+            Index item = minHeap.remove();  // Remove item from queue.
+
+            // If goal ....
+            if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
+                return true;
+            }
+
+            // Check neighbors of item.
+            AStarCheckNeighbors(item, minHeap);
+        }
+
         return false;
     }
 
@@ -295,8 +351,11 @@ public class Main {
 
     public static void main(String[] args) {
         generateMaze(10, 0.3);
+
         printMaze(maze);
         System.out.println();
         System.out.println(BFSMaze());
+
+        AStarMaze(); // DEBUG
     }
 }

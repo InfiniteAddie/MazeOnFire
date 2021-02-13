@@ -1,14 +1,17 @@
 package com.company;
 
+import java.util.Comparator;
+
 /**
  * Index object to store indices for a space in the maze - for use in a stack.
  * @author Aditya Dhawan, Annie Thach
  */
-public class Index {
+public class Index implements Comparable<Index>, Comparator<Index> {
     private int row;
     private int col;
     private int dist;
     private Index parent;
+    private double score;
 
     /**
      * Constructor method.
@@ -20,6 +23,7 @@ public class Index {
         this.col = col;
         this.dist = dist;
         this.parent = parent;
+        this.score = dist;
     }
 
     /**
@@ -33,11 +37,47 @@ public class Index {
     }
 
     /**
+     * Compare method for 2 index objects.
+     * @param index - Index object.
+     * @return -1 if score is less than input,
+                0 if score is equal to input,
+                1 if score is greater than input.
+     */
+    public int compareTo(Index obj) {
+        if(this.score == obj.score) {
+            return 0;
+        } else if (this.score > obj.score) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * Compare method for priority queue's comparator.
+     * @param a - Item 1.
+     * @param b - Item 2.
+     * @return (See compareTo method.)
+     */
+    @Override
+    public int compare(Index a, Index b) {
+        return a.compareTo(b);
+    }
+
+    /**
      * Setter method for distance from goal.
      * @param dist - The distance from goal.
      */
     public void setDist(int dist) {
         this.dist = dist;
+    }
+
+    /**
+     * Setter method for score.
+     * @param score - The score.
+     */
+    public void setScore(int score) {
+        this.score = score;
     }
 
     /**
@@ -70,5 +110,13 @@ public class Index {
      */
     public Index getParent() {
         return parent;
+    }
+
+    /**
+     * Getter method for score.
+     * @return Score.
+     */
+    public double getScore() {
+        return score;
     }
 }
