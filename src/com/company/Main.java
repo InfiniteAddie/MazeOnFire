@@ -284,12 +284,35 @@ public class Main {
      * Helper method.
      * Count neighbors of given (x, y) that are currently on fire.
      * @param row - The row index of the current maze.
-     * @param col - The column in dex of the current maze.
+     * @param col - The column index of the current maze.
      * @return Number of neighbors that are on fire.
      */
     public static int countFireNeighbors(int row, int col) {
         // TODO: Code here.
-        return 0;
+        int k = 0; //num of neighbors on fire
+
+        if(row - 1 >= 0) { //check if left is in bounds
+            if(maze[row - 1][col] == 3) { //check if left is on fire
+                k ++;
+            }
+        }
+        if(row + 1 < maze.length) { //check if right is in bounds
+            if(maze[row + 1][col] == 3) { //check if right is on fire
+                k ++;
+            }
+        }
+        if(col - 1 >= 0) { //check if up is in bounds
+            if(maze[row][col - 1] == 3) { //check if up is on fire
+                k ++;
+            }
+        }
+        if(col + 1 < maze[col].length) { //check if down is in bounds
+            if(maze[row][col + 1] == 3) { //check if down is on fire
+                k ++;
+            }
+        }
+
+        return k;
     }
 
     /**
