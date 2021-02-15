@@ -38,7 +38,7 @@ public class Index implements Comparable<Index>, Comparator<Index> {
 
     /**
      * Compare method for 2 index objects.
-     * @param index - Index object.
+     * @param obj - Index object.
      * @return -1 if score is less than input,
                 0 if score is equal to input,
                 1 if score is greater than input.

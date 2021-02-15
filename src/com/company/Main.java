@@ -220,11 +220,11 @@ public class Main {
      * @param item - Current item.
      * @param queue - The queue to add neighbors to.
      */
-    private static void AStarCheckNeighbors(int[][] maze, Index item, PriorityQueue<Index> queue) {
+    private static void AStarCheckNeighbors(int[][] maze, Index[][] indexMaze, Index item, PriorityQueue<Index> queue) {
         Index goal = new Index(maze.length - 1, maze.length -1, 0, null);
 
         // Check neighbor below item. (row + 1, col)
-        if(item.getRow() + 1 < maze.length - 1 && maze[item.getRow() + 1][item.getCol()] == 0) {    // Bound check & not visited.
+        if(item.getRow() + 1 < maze.length && maze[item.getRow() + 1][item.getCol()] == 0) {    // Bound check & not visited.
             maze[item.getRow() + 1][item.getCol()] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item);
             neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
@@ -232,7 +232,7 @@ public class Main {
         }
 
         // Check neighbor right of item. (row, col + 1)
-        if(item.getCol() + 1 < maze.length - 1 && maze[item.getRow()][item.getCol() + 1] == 0) {    // Bound check & not visited.
+        if(item.getCol() + 1 < maze.length && maze[item.getRow()][item.getCol() + 1] == 0) {    // Bound check & not visited.
             maze[item.getRow()][item.getCol() + 1] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item);
             neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
@@ -263,11 +263,13 @@ public class Main {
      * h(n) is an estimated distance from n to goal.
      * @return True if goal is reachable; false otherwise.
      */
-    public static boolean AStarMaze() {
+    public static ArrayList<Index> AStarMaze() {
         // TODO: Finish coding shortest path.
         int[][] mazeAStar = copyMaze();
+        Index[][] indexMaze = new Index[mazeAStar.length][mazeAStar[0].length];
         PriorityQueue<Index> minHeap = new PriorityQueue<Index>();
         maze[0][0] = 1; // Mark start visited.
+        indexMaze[0][0] = new Index(0, 0, 0, null);
         minHeap.add(new Index(0, 0, 0, null));  // Add start to queue.
         
         // While heap is not empty ...
@@ -277,15 +279,20 @@ public class Main {
             // If goal ...
             if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
                 System.out.println("mazeAStar:"); // DEBUG
-                System.out.println(mazeAStar); // DEBUG
-                return true;
+                printMaze(mazeAStar); // DEBUG
+
+                ArrayList<Index> shortestPath = new ArrayList<Index>();
+
+
+                return shortestPath;
             }
 
             // Check neighbors of item.
-            AStarCheckNeighbors(mazeAStar, item, minHeap);
+            AStarCheckNeighbors(mazeAStar, indexMaze, item, minHeap);
+            System.out.println(minHeap);
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -296,7 +303,6 @@ public class Main {
      * @return Number of neighbors that are on fire.
      */
     public static int countFireNeighbors(int row, int col) {
-        // TODO: Code here.
         int k = 0; //num of neighbors on fire
 
         if(row - 1 >= 0) { //check if left is in bounds
@@ -328,7 +334,6 @@ public class Main {
      * The probability that a space will catch fire is defined as:
      * 1 - (1 - q)^k
      * @param q - Flammability rate; 0.0 < q < 1.0.
-     * TODO: Finish coding helper countFireNeighbors.
      */
     public void advanceFireOneStep(double q) {
         Random random = new Random();
@@ -384,9 +389,9 @@ public class Main {
         generateMaze(10, 0.3);
 
         printMaze(maze);
-        System.out.println();
-        System.out.println(BFSMaze());
+        //System.out.println();
+        //System.out.println(BFSMaze());
 
-        AStarMaze(); // DEBUG
+        System.out.println(AStarMaze()); // DEBUG
     }
 }
