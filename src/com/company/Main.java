@@ -220,11 +220,12 @@ public class Main {
      * @param item - Current item.
      * @param queue - The queue to add neighbors to.
      */
-    private static void AStarCheckNeighbors(Index item, PriorityQueue<Index> queue) {
+    private static void AStarCheckNeighbors(int[][] maze, Index item, PriorityQueue<Index> queue) {
         Index goal = new Index(maze.length - 1, maze.length -1, 0, null);
 
         // Check neighbor below item. (row + 1, col)
         if(item.getRow() + 1 < maze.length - 1 && maze[item.getRow() + 1][item.getCol()] == 0) {    // Bound check & not visited.
+            maze[item.getRow() + 1][item.getCol()] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item);
             neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
@@ -232,6 +233,7 @@ public class Main {
 
         // Check neighbor right of item. (row, col + 1)
         if(item.getCol() + 1 < maze.length - 1 && maze[item.getRow()][item.getCol() + 1] == 0) {    // Bound check & not visited.
+            maze[item.getRow()][item.getCol() + 1] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item);
             neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
@@ -239,6 +241,7 @@ public class Main {
 
         // Check neighbor above item. (row - 1, col)
         if(item.getRow() - 1 >= 0 && maze[item.getRow() - 1][item.getCol()] == 0) {    // Bound check & not visited.
+            maze[item.getRow() - 1][item.getCol()] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item);
             neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
@@ -246,6 +249,7 @@ public class Main {
 
         // Check neighbor left of item. (row, col - 1)
         if(item.getCol() - 1 >= 0 && maze[item.getRow()][item.getCol() - 1] == 0) {    // Bound check & not visited.
+            maze[item.getRow()][item.getCol() - 1] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item);
             neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
@@ -261,7 +265,9 @@ public class Main {
      */
     public static boolean AStarMaze() {
         // TODO: Finish coding shortest path.
+        int[][] mazeAStar = copyMaze();
         PriorityQueue<Index> minHeap = new PriorityQueue<Index>();
+        maze[0][0] = 1; // Mark start visited.
         minHeap.add(new Index(0, 0, 0, null));  // Add start to queue.
         
         // While heap is not empty ...
@@ -270,11 +276,13 @@ public class Main {
 
             // If goal ...
             if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
+                System.out.println("mazeAStar:"); // DEBUG
+                System.out.println(mazeAStar); // DEBUG
                 return true;
             }
 
             // Check neighbors of item.
-            AStarCheckNeighbors(item, minHeap);
+            AStarCheckNeighbors(mazeAStar, item, minHeap);
         }
 
         return false;
