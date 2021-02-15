@@ -226,28 +226,28 @@ public class Main {
         // Check neighbor below item. (row + 1, col)
         if(item.getRow() + 1 < maze.length - 1 && maze[item.getRow() + 1][item.getCol()] == 0) {    // Bound check & not visited.
             Index neighbor = new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item);
-            neighbor.setScore(item.getDistance() /* TODO: + dist(neighbor, goal) */);
+            neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
 
         // Check neighbor right of item. (row, col + 1)
         if(item.getCol() + 1 < maze.length - 1 && maze[item.getRow()][item.getCol() + 1] == 0) {    // Bound check & not visited.
             Index neighbor = new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item);
-            neighbor.setScore(item.getDistance() /* TODO: + dist(neighbor, goal) */);
+            neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
 
         // Check neighbor above item. (row - 1, col)
         if(item.getRow() - 1 >= 0 && maze[item.getRow() - 1][item.getCol()] == 0) {    // Bound check & not visited.
             Index neighbor = new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item);
-            neighbor.setScore(item.getDistance() /* TODO: + dist(neighbor, goal) */);
+            neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
 
         // Check neighbor left of item. (row, col - 1)
         if(item.getCol() - 1 >= 0 && maze[item.getRow()][item.getCol() - 1] == 0) {    // Bound check & not visited.
             Index neighbor = new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item);
-            neighbor.setScore(item.getDistance() /* TODO: + dist(neighbor, goal) */);
+            neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
     }
@@ -260,7 +260,7 @@ public class Main {
      * @return True if goal is reachable; false otherwise.
      */
     public static boolean AStarMaze() {
-        // TODO: Finish coding.
+        // TODO: Finish coding shortest path.
         PriorityQueue<Index> minHeap = new PriorityQueue<Index>();
         minHeap.add(new Index(0, 0, 0, null));  // Add start to queue.
         
@@ -268,7 +268,7 @@ public class Main {
         while(!(minHeap.isEmpty())) {
             Index item = minHeap.remove();  // Remove item from queue.
 
-            // If goal ....
+            // If goal ...
             if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
                 return true;
             }

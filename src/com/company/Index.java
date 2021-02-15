@@ -65,6 +65,22 @@ public class Index implements Comparable<Index>, Comparator<Index> {
     }
 
     /**
+     * Calculate the distance between 2 points based off the Euclidean distance metric.
+     * d((x_1, y_1), (x_2, y_2)) = sqrt((x_1 - x_2)^2 + (y_1 - y_2)^2)
+     * @param p - A point.
+     * @param q - Another point.
+     * @return The Euclidean distance between p and q.
+     */
+    public static double distTwoPoints(Index p, Index q) {
+        return Math.sqrt(Math.pow((p.getCol() - q.getCol()), 2) + Math.pow((p.getRow() - q.getRow()), 2));
+    }
+
+    // DEBUG
+    public static void main(String[] args) {
+        System.out.println(distTwoPoints(new Index(-1, 2, -1, null), new Index(2, -2, -1, null)));
+    }
+
+    /**
      * Setter method for distance from goal.
      * @param dist - The distance from goal.
      */
@@ -76,7 +92,7 @@ public class Index implements Comparable<Index>, Comparator<Index> {
      * Setter method for score.
      * @param score - The score.
      */
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
