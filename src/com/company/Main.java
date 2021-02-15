@@ -71,6 +71,7 @@ public class Main {
         DFS(mazeDFS, 0, 0);
 
         //once dfs() is complete, check to see if the goal has been visited
+        printMaze(mazeDFS); // DEBUG
         return (mazeDFS[mazeDFS.length - 1][mazeDFS[0].length - 1] == 1);
     }
 
@@ -221,7 +222,7 @@ public class Main {
      * @param queue - The queue to add neighbors to.
      */
     private static void AStarCheckNeighbors(int[][] maze, Index[][] indexMaze, Index item, PriorityQueue<Index> queue) {
-        Index goal = new Index(maze.length - 1, maze.length -1, 0, null);
+        Index goal = new Index(maze.length - 1, maze.length - 1, 0, null);
 
         // Check neighbor below item. (row + 1, col)
         if(item.getRow() + 1 < maze.length && maze[item.getRow() + 1][item.getCol()] == 0) {    // Bound check & not visited.
@@ -278,20 +279,17 @@ public class Main {
 
             // If goal ...
             if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
-                System.out.println("mazeAStar:"); // DEBUG
-                printMaze(mazeAStar); // DEBUG
-
                 ArrayList<Index> shortestPath = new ArrayList<Index>();
 
-
+                printMaze(mazeAStar); // DEBUG
                 return shortestPath;
             }
 
             // Check neighbors of item.
             AStarCheckNeighbors(mazeAStar, indexMaze, item, minHeap);
-            System.out.println(minHeap);
         }
 
+        printMaze(mazeAStar); // DEBUG
         return null;
     }
 
@@ -386,12 +384,33 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        long startTime;
+        long endTime;
+
         generateMaze(10, 0.3);
 
+        System.out.println("Original maze:");
         printMaze(maze);
-        //System.out.println();
-        //System.out.println(BFSMaze());
+        System.out.println();
+       
+        System.out.println("Depth-First Search (DFS):");
+        startTime = System.nanoTime();
+        System.out.println(DFSMaze());
+        endTime = System.nanoTime();
+        System.out.println("Time elapsed: " + (endTime - startTime)/1000000 + " s");
+        System.out.println();
 
-        System.out.println(AStarMaze()); // DEBUG
+        System.out.println("Breadth-First Search (BFS):");
+        startTime = System.nanoTime();
+        BFSMaze();
+        endTime = System.nanoTime();
+        System.out.println("Time elapsed: " + (endTime - startTime)/1000000 + " s");
+        System.out.println();
+
+        System.out.println("A* Search:");
+        startTime = System.nanoTime();
+        AStarMaze();
+        endTime = System.nanoTime();
+        System.out.println("Time elapsed: " + (endTime - startTime)/1000000 + " s");
     }
 }
