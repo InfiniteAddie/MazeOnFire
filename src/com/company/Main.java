@@ -83,7 +83,8 @@ public class Main {
         int j = indexMaze[i].length - 1;
         while(i >= 0 && j >= 0) {
             //check if loop has reached start node
-            if((i == 0 && j == 1) || (i == 1 && j == 0)) {
+            //System.out.println(indexMaze[i][j]);
+            if((i == 0 && j == 1) || (i == 1 && j == 0) || (i == 0 && j == 0)) {
                 shortestPath.add(indexMaze[0][0]);
                 break;
             }
@@ -411,14 +412,14 @@ public class Main {
 
         System.out.println("Breadth-First Search (BFS):");
         startTime = System.nanoTime();
-        BFSMaze();
+        System.out.println(BFSMaze());
         endTime = System.nanoTime();
         System.out.println("Time elapsed: " + (endTime - startTime)/1000000 + " s");
         System.out.println();
 
         System.out.println("A* Search:");
         startTime = System.nanoTime();
-        AStarMaze();
+        System.out.println(AStarMaze());
         endTime = System.nanoTime();
         System.out.println("Time elapsed: " + (endTime - startTime)/1000000 + " s");
     }
