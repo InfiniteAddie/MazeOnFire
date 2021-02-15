@@ -74,6 +74,76 @@ public class Main {
         return (mazeDFS[mazeDFS.length - 1][mazeDFS[0].length - 1] == 1);
     }
 
+    public static ArrayList<Index> findShortestPath(Index[][] indexMaze) {
+        ArrayList<Index> shortestPath = new ArrayList<Index>();
+        shortestPath.add(indexMaze[indexMaze.length - 1][indexMaze[indexMaze.length - 1].length - 1]);
+
+        int i = indexMaze.length - 1;
+        int j = indexMaze[i].length - 1;
+        while(i >= 0 && j >= 0) {
+            //check if loop has reached start node
+            if((i == 0 && j == 1) || (i == 1 && j == 0)) {
+                shortestPath.add(indexMaze[0][0]);
+                break;
+            }
+
+            //check if left is within bounds
+            if(j - 1 >= 0) {
+                //check if left is not null
+                if(indexMaze[i][j - 1] != null) {
+                    //check if dist value of left is less than dist value at current index
+                    if(indexMaze[i][j - 1].getDistance() < indexMaze[i][j].getDistance()) {
+                        j --; //move to this index
+                        shortestPath.add(indexMaze[i][j]);
+                    }
+                }
+            }
+
+            //check if up is within bounds
+            if(i - 1 >= 0) {
+                //check if up is not null
+                if(indexMaze[i - 1][j] !=null) {
+                    //check if dist value of up is less than dist value at current index
+                    if(indexMaze[i - 1][j].getDistance() < indexMaze[i][j].getDistance()) {
+                        i --; //move to this index
+                        shortestPath.add(indexMaze[i][j]);
+                    }
+                }
+            }
+
+            //check if right is within bounds
+            if(j + 1 < indexMaze[j].length) {
+                //check if right is not null
+                if(indexMaze[i][j + 1] != null) {
+                    //check if dist value of right is less than dist value at current index
+                    if(indexMaze[i][j + 1].getDistance() < indexMaze[i][j].getDistance()) {
+                        j ++; //move to this index
+                        shortestPath.add(indexMaze[i][j]);
+                    }
+                }
+            }
+
+            //check if down is within bounds
+            if(i + 1 < indexMaze.length) {
+                //check if down is not null
+                if(indexMaze[i + 1][j] != null) {
+                    //check if dist value of down is less than dist value at current index
+                    if(indexMaze[i + 1][j].getDistance() < indexMaze[i][j].getDistance()) {
+                        i ++; //move to this index
+                        shortestPath.add(indexMaze[i][j]);
+                    }
+                }
+            }
+
+            //System.out.println(indexMaze[i][j]);
+            //System.out.println(shortestPath);
+
+            //loop should continue until starting node is reached
+        }
+        Collections.reverse(shortestPath);
+        return shortestPath;    // Reached goal; return.
+    }
+
     /**
      * BFS search for goal.
      * @return True if goal is reachable; false otherwise.
@@ -105,69 +175,7 @@ public class Main {
                 }*/
                 printMaze(mazeBFS); // DEBUG
 
-                ArrayList<Index> shortestPath = new ArrayList<Index>();
-                shortestPath.add(indexMaze[indexMaze.length - 1][indexMaze[indexMaze.length - 1].length - 1]);
-
-                int i = indexMaze.length - 1;
-                int j = indexMaze[i].length - 1;
-                while(i >= 0 && j >= 0) {
-                    //check if loop has reached start node
-                    if(i == 0 && j == 0) {
-                        break;
-                    }
-
-                    //check if left is within bounds
-                    if(j - 1 >= 0) {
-                        //check if left is not null
-                        if(indexMaze[i][j - 1] != null) {
-                            //check if dist value of left is less than dist value at current index
-                            if(indexMaze[i][j - 1].getDistance() < indexMaze[i][j].getDistance()) {
-                                j --; //move to this index
-                                shortestPath.add(indexMaze[i][j]);
-                            }
-                        }
-                    }
-
-                    //check if up is within bounds
-                    if(i - 1 >= 0) {
-                        //check if up is not null
-                        if(indexMaze[i - 1][j] !=null) {
-                            //check if dist value of up is less than dist value at current index
-                            if(indexMaze[i - 1][j].getDistance() < indexMaze[i][j].getDistance()) {
-                                i --; //move to this index
-                                shortestPath.add(indexMaze[i][j]);
-                            }
-                        }
-                    }
-
-                    //check if right is within bounds
-                    if(j + 1 < indexMaze[j].length) {
-                        //check if right is not null
-                        if(indexMaze[i][j + 1] != null) {
-                            //check if dist value of right is less than dist value at current index
-                            if(indexMaze[i][j + 1].getDistance() < indexMaze[i][j].getDistance()) {
-                                j ++; //move to this index
-                                shortestPath.add(indexMaze[i][j]);
-                            }
-                        }
-                    }
-
-                    //check if down is within bounds
-                    if(i + 1 < indexMaze.length) {
-                        //check if down is not null
-                        if(indexMaze[i + 1][j] != null) {
-                            //check if dist value of down is less than dist value at current index
-                            if(indexMaze[i + 1][j].getDistance() < indexMaze[i][j].getDistance()) {
-                                i ++; //move to this index
-                                shortestPath.add(indexMaze[i][j]);
-                            }
-                        }
-                    }
-
-                    //loop should continue until starting node is reached
-                }
-                Collections.reverse(shortestPath);
-                return shortestPath;    // Reached goal; return.
+                return findShortestPath(indexMaze);
             }
 
             // For all neighbors adjacent to item ... (item can have 0 - 4 viable neighbors)
@@ -227,6 +235,7 @@ public class Main {
         if(item.getRow() + 1 < maze.length && maze[item.getRow() + 1][item.getCol()] == 0) {    // Bound check & not visited.
             maze[item.getRow() + 1][item.getCol()] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item);
+            indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
             neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
@@ -235,6 +244,7 @@ public class Main {
         if(item.getCol() + 1 < maze.length && maze[item.getRow()][item.getCol() + 1] == 0) {    // Bound check & not visited.
             maze[item.getRow()][item.getCol() + 1] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item);
+            indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
             neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
@@ -243,6 +253,7 @@ public class Main {
         if(item.getRow() - 1 >= 0 && maze[item.getRow() - 1][item.getCol()] == 0) {    // Bound check & not visited.
             maze[item.getRow() - 1][item.getCol()] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item);
+            indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
             neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
@@ -251,6 +262,7 @@ public class Main {
         if(item.getCol() - 1 >= 0 && maze[item.getRow()][item.getCol() - 1] == 0) {    // Bound check & not visited.
             maze[item.getRow()][item.getCol() - 1] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item);
+            indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
             neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
@@ -264,7 +276,6 @@ public class Main {
      * @return True if goal is reachable; false otherwise.
      */
     public static ArrayList<Index> AStarMaze() {
-        // TODO: Finish coding shortest path.
         int[][] mazeAStar = copyMaze();
         Index[][] indexMaze = new Index[mazeAStar.length][mazeAStar[0].length];
         PriorityQueue<Index> minHeap = new PriorityQueue<Index>();
@@ -281,15 +292,12 @@ public class Main {
                 System.out.println("mazeAStar:"); // DEBUG
                 printMaze(mazeAStar); // DEBUG
 
-                ArrayList<Index> shortestPath = new ArrayList<Index>();
-
-
-                return shortestPath;
+                return findShortestPath(indexMaze);
             }
 
             // Check neighbors of item.
             AStarCheckNeighbors(mazeAStar, indexMaze, item, minHeap);
-            System.out.println(minHeap);
+            //System.out.println(minHeap);
         }
 
         return null;
