@@ -68,11 +68,31 @@ public class Main {
     public static boolean DFSMaze() {
         //start by running dfs() on a copy of the maze
         int[][] mazeDFS = copyMaze();
-        DFS(mazeDFS, 0, 0);
 
-        //once dfs() is complete, check to see if the goal has been visited
-        printMaze(mazeDFS); // DEBUG
-        return (mazeDFS[mazeDFS.length - 1][mazeDFS[0].length - 1] == 1);
+        Stack<Index> stack = new Stack<Index>(); //initialize fringe in the form of a stack
+        stack.push(new Index(0, 0, 0, null)); //start by pushing the source index
+
+        while(!stack.isEmpty()) { //loop through until the stack is empty
+            //pop current from the stack and step through its neighbors
+            Index item = stack.pop();
+            if(item.getRow() < 0 || item.getCol() < 0 || item.getRow() >= mazeDFS.length || item.getCol() >= mazeDFS[0].length) { //bound and visited check
+                continue;
+            }
+            else if(mazeDFS[item.getRow()][item.getCol()] == 1) {
+                continue;
+            }
+
+            mazeDFS[item.getRow()][item.getCol()] = 1;//mark popped index as visited
+
+            //step through left, right, up, and down parts of maze
+            stack.push(new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item)); //right
+            stack.push(new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item)); //down
+            stack.push(new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item)); //left
+            stack.push(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item)); //up
+
+        }
+
+        return (mazeDFS[mazeDFS.length - 1][mazeDFS[mazeDFS.length - 1].length - 1] == 1); //checking solely for if DFS reached the goal
     }
 
     public static ArrayList<Index> findShortestPath(Index[][] indexMaze) {
@@ -175,7 +195,7 @@ public class Main {
                     }
                     System.out.println();
                 }*/
-                printMaze(mazeBFS); // DEBUG
+                //printMaze(mazeBFS); // DEBUG
 
                 return findShortestPath(indexMaze);
             }
@@ -221,7 +241,7 @@ public class Main {
                 }
             }
         }
-        printMaze(mazeBFS); // DEBUG
+        //printMaze(mazeBFS); // DEBUG
         return null;
     }
 
@@ -291,7 +311,7 @@ public class Main {
 
             // If goal ...
             if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
-                printMaze(mazeAStar); // DEBUG
+                //printMaze(mazeAStar); // DEBUG
                 return findShortestPath(indexMaze);
             }
 
@@ -299,7 +319,7 @@ public class Main {
             AStarCheckNeighbors(mazeAStar, indexMaze, item, minHeap);
         }
 
-        printMaze(mazeAStar); // DEBUG
+        //printMaze(mazeAStar); // DEBUG
         return null;
     }
 
@@ -397,30 +417,33 @@ public class Main {
         long startTime;
         long endTime;
 
-        generateMaze(10, 0.3);
+        generateMaze(5000, 0.1);
 
+        /*
         System.out.println("Original maze:");
         printMaze(maze);
-        System.out.println();
-       
+        System.out.println();*/
+
+
         System.out.println("Depth-First Search (DFS):");
         startTime = System.nanoTime();
         System.out.println(DFSMaze());
         endTime = System.nanoTime();
-        System.out.println("Time elapsed: " + (endTime - startTime)/1000000 + " s");
+        System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");
         System.out.println();
+
 
         System.out.println("Breadth-First Search (BFS):");
         startTime = System.nanoTime();
         System.out.println(BFSMaze());
         endTime = System.nanoTime();
-        System.out.println("Time elapsed: " + (endTime - startTime)/1000000 + " s");
+        System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");
         System.out.println();
 
         System.out.println("A* Search:");
         startTime = System.nanoTime();
         System.out.println(AStarMaze());
         endTime = System.nanoTime();
-        System.out.println("Time elapsed: " + (endTime - startTime)/1000000 + " s");
+        System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");
     }
 }
