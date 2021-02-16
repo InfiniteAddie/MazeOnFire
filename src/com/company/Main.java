@@ -20,8 +20,9 @@ public class Main {
      * Density is 0.0 < p < 1.0; p is the probability the tile will be filled.
      * @param dim - Dimension of maze.
      * @param den - Obstacle density.
+     * @param onFire - Set random open spot on fire if true, ignore if false.
      */
-    public static void generateMaze(int dim, double den) {
+    public static void generateMaze(int dim, double den, boolean onFire) {
         maze = new int[dim][dim];
         Random random = new Random();
 
@@ -37,14 +38,27 @@ public class Main {
                 }
             }
         }
+
+        //if maze needs to be on fire, select a random spot and set it on fire
+        if(onFire) {
+            int initFireI;
+            int initFireJ;
+            //randomly choose an i,j such that
+            do {
+                initFireI = (int)(Math.random() * maze.length);
+                initFireJ = (int)(Math.random() * maze.length);
+            } while(maze[initFireI][initFireJ] == 2 || (initFireI == 0 && initFireJ == 0) || (initFireI == maze.length - 1 && initFireJ == maze.length - 1));
+            maze[initFireI][initFireJ] = 3;
+        }
     }
 
+    /*
     /**
      * Runs DFS recursively on the maze, marking each spot as visited as it goes
      * @param maze: the maze to traverse through
      * @param row: indexes the current row
      * @param col: indexes the current column
-     */
+     */ /*
     public static void DFS(int[][] maze, int row, int col) {
         //If we step out of bounds, or we reach something that has already been visited or is an obstacle, stop there
         if(row < 0 || col < 0 || row > maze.length - 1 || col > maze[0].length - 1) {
@@ -59,7 +73,7 @@ public class Main {
         DFS(maze, row, col - 1); //step left
         DFS(maze, row + 1, col); //step down
         DFS(maze, row - 1, col); //step up
-    }
+    }*/
 
     /**
      * DFS search for goal.
@@ -363,7 +377,7 @@ public class Main {
      * 1 - (1 - q)^k
      * @param q - Flammability rate; 0.0 < q < 1.0.
      */
-    public static void advanceFireOneStep(double q) {
+    public static void advanceFireOneStep(int[][] maze, double q) {
         Random random = new Random();
 
         for(int row = 0; row < maze.length; row++) {
@@ -417,7 +431,7 @@ public class Main {
         long startTime;
         long endTime;
 
-        generateMaze(10, 0.3);
+        generateMaze(10, 0.3, true);
 
         /*
         System.out.println("Original maze:");
@@ -447,17 +461,9 @@ public class Main {
         System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");*/
 
         //At the start, a randomly selected open spot in the maze is set to "on fire"
-
-        int initFireI;
-        int initFireJ;
-        do {
-            initFireI = (int)(Math.random() * maze.length);
-            initFireJ = (int)(Math.random() * maze.length);
-        } while(maze[initFireI][initFireJ] == 2 || (initFireI == 0 && initFireJ == 0) || (initFireI == maze.length - 1 && initFireJ == maze.length - 1));
-        maze[initFireI][initFireJ] = 3;
         printMaze(maze);
         System.out.println();
-        advanceFireOneStep(0.8);
+        advanceFireOneStep(maze, 0.3); //the fire spreads
         printMaze(maze);
     }
 }
