@@ -363,7 +363,7 @@ public class Main {
      * 1 - (1 - q)^k
      * @param q - Flammability rate; 0.0 < q < 1.0.
      */
-    public void advanceFireOneStep(double q) {
+    public static void advanceFireOneStep(double q) {
         Random random = new Random();
 
         for(int row = 0; row < maze.length; row++) {
@@ -417,14 +417,14 @@ public class Main {
         long startTime;
         long endTime;
 
-        generateMaze(5000, 0.1);
+        generateMaze(10, 0.3);
 
         /*
         System.out.println("Original maze:");
         printMaze(maze);
         System.out.println();*/
 
-
+        /*
         System.out.println("Depth-First Search (DFS):");
         startTime = System.nanoTime();
         System.out.println(DFSMaze());
@@ -444,6 +444,20 @@ public class Main {
         startTime = System.nanoTime();
         System.out.println(AStarMaze());
         endTime = System.nanoTime();
-        System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");
+        System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");*/
+
+        //At the start, a randomly selected open spot in the maze is set to "on fire"
+
+        int initFireI;
+        int initFireJ;
+        do {
+            initFireI = (int)(Math.random() * maze.length);
+            initFireJ = (int)(Math.random() * maze.length);
+        } while(maze[initFireI][initFireJ] == 2 || (initFireI == 0 && initFireJ == 0) || (initFireI == maze.length - 1 && initFireJ == maze.length - 1));
+        maze[initFireI][initFireJ] = 3;
+        printMaze(maze);
+        System.out.println();
+        advanceFireOneStep(0.8);
+        printMaze(maze);
     }
 }
