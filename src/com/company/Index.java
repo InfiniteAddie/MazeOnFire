@@ -14,7 +14,7 @@ public class Index implements Comparable<Index>, Comparator<Index> {
     private double score;
 
     /**
-     * Constructor method.
+     * Constructor used to represent coordinates in the maze itself.
      * @param row - Row of index.
      * @param col - Column of index.
      */
@@ -24,6 +24,16 @@ public class Index implements Comparable<Index>, Comparator<Index> {
         this.dist = dist;
         this.parent = parent;
         this.score = dist;
+    }
+
+    /**
+     * Constructor used to represent the agent that steps through the maze.
+     * @param row
+     * @param col
+     */
+    public Index(int row, int col) {
+        this.row = row;
+        this.col = col;
     }
 
     /**
@@ -51,6 +61,34 @@ public class Index implements Comparable<Index>, Comparator<Index> {
         } else {
             return -1;
         }
+    }
+
+    /**
+     * Method to make the agent move down one step by incrementing the row.
+     */
+    public void stepDown() {
+        row ++;
+    }
+
+    /**
+     * Method to make the agent move up one step by decrementing the row.
+     */
+    public void stepUp() {
+        row --;
+    }
+
+    /**
+     * Method to make the agent move right one step by incrementing the col.
+     */
+    public void stepRight() {
+        col ++;
+    }
+
+    /**
+     * Method to make the agent move left one step by decrementing the col.
+     */
+    public void stepLeft() {
+        col --;
     }
 
     /**

@@ -431,8 +431,6 @@ public class Main {
         long startTime;
         long endTime;
 
-        generateMaze(10, 0.3, true);
-
         /*
         System.out.println("Original maze:");
         printMaze(maze);
@@ -461,9 +459,25 @@ public class Main {
         System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");*/
 
         //At the start, a randomly selected open spot in the maze is set to "on fire"
+        /*
         printMaze(maze);
         System.out.println();
         advanceFireOneStep(maze, 0.3); //the fire spreads
-        printMaze(maze);
+        printMaze(maze);*/
+
+        /*  STRATEGY ONE  */
+        //At the start of the maze, wherever the fire is, solve for the shortest path from upper left to lower right,
+        // and follow it until the agent exits the maze or burns
+        generateMaze(100, 0.3, true);
+        ArrayList<Index> shortestPath;
+        do {
+            shortestPath = BFSMaze();
+        } while(shortestPath == null);
+
+        Index agent = new Index(0, 0);
+        int i = 1;
+        while(agent.getRow() != maze.length - 1 && agent.getCol() != maze.length - 1) {
+            //TODO: have the agent step through the maze.
+        }
     }
 }
