@@ -39,15 +39,21 @@ Time elapsed is in seconds, and it tends to round to 0 in the conversion from na
 1. DFS ignoring walls.
 
 # Changelog
+Most Recent → Oldest
 ## Wednesday, February 17, 2021
 ### 5:30 AM
 1. Added this README (yay).
+    - Added [Compile & Run](#Compile-&-Run).
+    - Added [Testing Notes](#Testing-Notes).
+    - Added [Todo](#Todo).
+    - Added [Bugs & Issues](#Bugs-&-Issues).
+    - Added [Changelog](#Changelog).
 2. Changed Index's dist attribute type from int to double.
 3. Fixed distance assignments for A*.
 4. Fixed score assignments for A*.
 5. Added earlier exit condition for DFS.
     - When goal is popped from the stack, it can exit.
-6. Fixed DFS.
+6. Fixed #1 - DFS ignoring walls.
     - Rewrote neighbor check of DFS to not ignore walls.
 7. Added printMazeASCII method.
     - Same thing as printMaze, but it prints a maze that is friendlier to the human eyes.
@@ -55,3 +61,10 @@ Time elapsed is in seconds, and it tends to round to 0 in the conversion from na
 8. **[TEMP!]** Commented out advance fire outputs in main to test search outputs.
 9. **[TEMP?]** Changed A* to return null instead of shortest path list with findShortestPath. 
     - See [Known Bugs & Issues](#Bugs-&-Issues).
+
+### 3:00 PM
+1. Shifted order of neighbors checked for DFS to prioritize bottom right.
+    - Stack is last in, first out (LIFO), so: up → left → right → down.
+2. Shifted order of neighbors checked for BFS to prioritize bottom right.
+    - Queue is first in, first out (FIFO), so: down → right → left → up.
+3. Organized a few methods and comments.

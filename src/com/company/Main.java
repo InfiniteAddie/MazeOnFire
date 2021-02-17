@@ -52,82 +52,11 @@ public class Main {
         }
     }
 
-    /*
     /**
-     * Runs DFS recursively on the maze, marking each spot as visited as it goes
-     * @param maze: the maze to traverse through
-     * @param row: indexes the current row
-     * @param col: indexes the current column
-     */ /*
-    public static void DFS(int[][] maze, int row, int col) {
-        //If we step out of bounds, or we reach something that has already been visited or is an obstacle, stop there
-        if(row < 0 || col < 0 || row > maze.length - 1 || col > maze[0].length - 1) {
-            return;
-        }
-        if(maze[row][col] == 1 || maze[row][col] == 2) {
-            return;
-        }
-
-        maze[row][col] = 1;
-        DFS(maze, row, col + 1); //step right
-        DFS(maze, row, col - 1); //step left
-        DFS(maze, row + 1, col); //step down
-        DFS(maze, row - 1, col); //step up
-    }*/
-
-    /**
-     * DFS search for goal.
-     * @return True if goal is reachable; false otherwise.
+     * Helper method to find shortest path through a maze.
+     * @param indexMaze - Maze of indices to trace back through.
+     * @return A list of indices that is part of the shortest path.
      */
-    public static boolean DFSMaze() {
-        int[][] mazeDFS = copyMaze();   // Copy maze.
-
-        Stack<Index> stack = new Stack<Index>(); // Initialize fringe in the form of a stack.
-        stack.push(new Index(0, 0, 0, null)); // Start by pushing the source index.
-
-        while(!stack.isEmpty()) { // While stack is not empty ...
-            Index item = stack.pop();   // Current item.
-            mazeDFS[item.getRow()][item.getCol()] = 1; // Mark visited.
-
-            // If goal ...
-            if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
-                printMazeASCII(mazeDFS); // DEBUG
-                return true;
-            }
-
-            // Check neighbors of item.
-            // Check right of item (row, col + 1).
-            if(item.getCol() + 1 < maze.length) {   // Bound check.
-                if(mazeDFS[item.getRow()][item.getCol() + 1] == 0) {    // Check space type.
-                    stack.push(new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item));
-                }
-            }
-
-            // Check below item (row + 1, col).
-            if(item.getRow() + 1 < maze.length) {   // Bound check.
-                if(mazeDFS[item.getRow() + 1][item.getCol()] == 0) {    // Check space type.
-                    stack.push(new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item));
-                }
-            }
-
-            // Check left of item (row, col - 1).
-            if(item.getCol() - 1 >= 0) {   // Bound check.
-                if(mazeDFS[item.getRow()][item.getCol() - 1] == 0) {    // Check space type.
-                    stack.push(new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item));
-                }
-            }
-
-            // Check above item (row - 1, col).
-            if(item.getRow() - 1 >= 0) {   // Bound check.
-                if(mazeDFS[item.getRow() - 1][item.getCol()] == 0) {    // Check space type.
-                    stack.push(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item));
-                }
-            }
-        }
-
-        return false;
-    }
-
     public static ArrayList<Index> findShortestPath(Index[][] indexMaze) {
         ArrayList<Index> shortestPath = new ArrayList<Index>();
         shortestPath.add(indexMaze[indexMaze.length - 1][indexMaze[indexMaze.length - 1].length - 1]);
@@ -199,6 +128,82 @@ public class Main {
         return shortestPath;    // Reached goal; return.
     }
 
+    /*
+    /**
+     * Runs DFS recursively on the maze, marking each spot as visited as it goes
+     * @param maze: the maze to traverse through
+     * @param row: indexes the current row
+     * @param col: indexes the current column
+     */ /*
+    public static void DFS(int[][] maze, int row, int col) {
+        //If we step out of bounds, or we reach something that has already been visited or is an obstacle, stop there
+        if(row < 0 || col < 0 || row > maze.length - 1 || col > maze[0].length - 1) {
+            return;
+        }
+        if(maze[row][col] == 1 || maze[row][col] == 2) {
+            return;
+        }
+
+        maze[row][col] = 1;
+        DFS(maze, row, col + 1); //step right
+        DFS(maze, row, col - 1); //step left
+        DFS(maze, row + 1, col); //step down
+        DFS(maze, row - 1, col); //step up
+    }*/
+
+    /**
+     * DFS search for goal.
+     * @return True if goal is reachable; false otherwise.
+     */
+    public static boolean DFSMaze() {
+        int[][] mazeDFS = copyMaze();   // Copy maze.
+
+        Stack<Index> stack = new Stack<Index>(); // Initialize fringe in the form of a stack.
+        stack.push(new Index(0, 0, 0, null)); // Start by pushing the source index.
+
+        while(!stack.isEmpty()) { // While stack is not empty ...
+            Index item = stack.pop();   // Current item.
+            mazeDFS[item.getRow()][item.getCol()] = 1; // Mark visited.
+
+            // If goal ...
+            if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
+                printMazeASCII(mazeDFS); // DEBUG
+                return true;
+            }
+
+            // Check neighbors of item.
+            // Check above item (row - 1, col).
+            if(item.getRow() - 1 >= 0) {   // Bound check.
+                if(mazeDFS[item.getRow() - 1][item.getCol()] == 0) {    // Check space type.
+                    stack.push(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item));
+                }
+            }
+
+            // Check left of item (row, col - 1).
+            if(item.getCol() - 1 >= 0) {   // Bound check.
+                if(mazeDFS[item.getRow()][item.getCol() - 1] == 0) {    // Check space type.
+                    stack.push(new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item));
+                }
+            }
+
+            // Check right of item (row, col + 1).
+            if(item.getCol() + 1 < maze.length) {   // Bound check.
+                if(mazeDFS[item.getRow()][item.getCol() + 1] == 0) {    // Check space type.
+                    stack.push(new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item));
+                }
+            }
+
+            // Check below item (row + 1, col).
+            if(item.getRow() + 1 < maze.length) {   // Bound check.
+                if(mazeDFS[item.getRow() + 1][item.getCol()] == 0) {    // Check space type.
+                    stack.push(new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item));
+                }
+            }
+        }
+
+        return false;
+    }
+
     /**
      * BFS search for goal.
      * @return True if goal is reachable; false otherwise.
@@ -234,7 +239,7 @@ public class Main {
             }
 
             // For all neighbors adjacent to item ... (item can have 0 - 4 viable neighbors)
-            // Check below item (col, row + 1).
+            // Check below item (row + 1, col).
             if(item.getRow() + 1 < mazeBFS.length) {    // Bound check.
                 // If neighbor not marked explored ... (and not an obstacle)
                 if(mazeBFS[item.getRow() + 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() + 1][item.getCol()] > 1)) {
@@ -244,7 +249,7 @@ public class Main {
                 }
             }
             
-            // Check right of item (col + 1, row).
+            // Check right of item (row, col + 1).
             if(item.getCol() + 1 < mazeBFS.length) {    // Bound check.
                 // If neighbor not marked explored ... (and not an obstacle)
                 if(mazeBFS[item.getRow()][item.getCol() + 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() + 1] > 1)) {
@@ -254,23 +259,23 @@ public class Main {
                 }
             }
 
-            // Check above item (col, row - 1).
-            if(item.getRow() - 1 >= 0) {    // Bound check.
-                // If neighbor not marked explored ... (and not an obstacle)
-                if(mazeBFS[item.getRow() - 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() - 1][item.getCol()] > 1)) {
-                    mazeBFS[item.getRow() - 1][item.getCol()] = 1;          // Mark explored ...
-                    indexMaze[item.getRow() - 1][item.getCol()] = new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item);
-                    queue.add(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item)); // Add neighbor to queue.
-                }
-            }
-
-            // Check left of item (col - 1, row).
+            // Check left of item (row, col - 1).
             if(item.getCol() - 1 >= 0) {    // Bound check.
                 // If neighbor not marked explored ... (and not an obstacle)
                 if(mazeBFS[item.getRow()][item.getCol() - 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() - 1] > 1)) {
                     mazeBFS[item.getRow()][item.getCol() - 1] = 1;          // Mark explored ...
                     indexMaze[item.getRow()][item.getCol() - 1] = new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item);
                     queue.add(new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item)); // Add neighbor to queue.
+                }
+            }
+
+            // Check above item (row - 1, col).
+            if(item.getRow() - 1 >= 0) {    // Bound check.
+                // If neighbor not marked explored ... (and not an obstacle)
+                if(mazeBFS[item.getRow() - 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() - 1][item.getCol()] > 1)) {
+                    mazeBFS[item.getRow() - 1][item.getCol()] = 1;          // Mark explored ...
+                    indexMaze[item.getRow() - 1][item.getCol()] = new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item);
+                    queue.add(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
             }
         }
@@ -292,9 +297,10 @@ public class Main {
             maze[item.getRow() + 1][item.getCol()] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow() + 1, item.getCol(), 0, item);
             neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
-            indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
             neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
+
+            indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
         }
 
         // Check neighbor right of item. (row, col + 1)
@@ -302,19 +308,10 @@ public class Main {
             maze[item.getRow()][item.getCol() + 1] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow(), item.getCol() + 1, 0, item);
             neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
-            indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
             neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
-        }
 
-        // Check neighbor above item. (row - 1, col)
-        if(item.getRow() - 1 >= 0 && maze[item.getRow() - 1][item.getCol()] == 0) {    // Bound check & not visited.
-            maze[item.getRow() - 1][item.getCol()] = 1; // Mark visited.
-            Index neighbor = new Index(item.getRow() - 1, item.getCol(), 0, item);
-            neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
-            neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
-            queue.add(neighbor);
         }
 
         // Check neighbor left of item. (row, col - 1)
@@ -322,9 +319,21 @@ public class Main {
             maze[item.getRow()][item.getCol() - 1] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow(), item.getCol() - 1, 0, item);
             neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
-            indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
             neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
+
+            indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
+        }
+
+        // Check neighbor above item. (row - 1, col)
+        if(item.getRow() - 1 >= 0 && maze[item.getRow() - 1][item.getCol()] == 0) {    // Bound check & not visited.
+            maze[item.getRow() - 1][item.getCol()] = 1; // Mark visited.
+            Index neighbor = new Index(item.getRow() - 1, item.getCol(), 0, item);
+            neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
+            neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
+            queue.add(neighbor);
+
+            indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
         }
     }
 
