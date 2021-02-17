@@ -80,33 +80,52 @@ public class Main {
      * @return True if goal is reachable; false otherwise.
      */
     public static boolean DFSMaze() {
-        //start by running dfs() on a copy of the maze
-        int[][] mazeDFS = copyMaze();
+        int[][] mazeDFS = copyMaze();   // Copy maze.
 
-        Stack<Index> stack = new Stack<Index>(); //initialize fringe in the form of a stack
-        stack.push(new Index(0, 0, 0, null)); //start by pushing the source index
+        Stack<Index> stack = new Stack<Index>(); // Initialize fringe in the form of a stack.
+        stack.push(new Index(0, 0, 0, null)); // Start by pushing the source index.
 
-        while(!stack.isEmpty()) { //loop through until the stack is empty
-            //pop current from the stack and step through its neighbors
-            Index item = stack.pop();
-            if(item.getRow() < 0 || item.getCol() < 0 || item.getRow() >= mazeDFS.length || item.getCol() >= mazeDFS[0].length) { //bound and visited check
-                continue;
+        while(!stack.isEmpty()) { // While stack is not empty ...
+            Index item = stack.pop();   // Current item.
+            mazeDFS[item.getRow()][item.getCol()] = 1; // Mark visited.
+
+            // If goal ...
+            if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
+                printMazeASCII(mazeDFS); // DEBUG
+                return true;
             }
-            else if(mazeDFS[item.getRow()][item.getCol()] == 1) {
-                continue;
+
+            // Check neighbors of item.
+            // Check right of item (row, col + 1).
+            if(item.getCol() + 1 < maze.length) {   // Bound check.
+                if(mazeDFS[item.getRow()][item.getCol() + 1] == 0) {    // Check space type.
+                    stack.push(new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item));
+                }
             }
 
-            mazeDFS[item.getRow()][item.getCol()] = 1;//mark popped index as visited
+            // Check below item (row + 1, col).
+            if(item.getRow() + 1 < maze.length) {   // Bound check.
+                if(mazeDFS[item.getRow() + 1][item.getCol()] == 0) {    // Check space type.
+                    stack.push(new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item));
+                }
+            }
 
-            //step through left, right, up, and down parts of maze
-            stack.push(new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item)); //right
-            stack.push(new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item)); //down
-            stack.push(new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item)); //left
-            stack.push(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item)); //up
+            // Check left of item (row, col - 1).
+            if(item.getCol() - 1 >= 0) {   // Bound check.
+                if(mazeDFS[item.getRow()][item.getCol() - 1] == 0) {    // Check space type.
+                    stack.push(new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item));
+                }
+            }
 
+            // Check above item (row - 1, col).
+            if(item.getRow() - 1 >= 0) {   // Bound check.
+                if(mazeDFS[item.getRow() - 1][item.getCol()] == 0) {    // Check space type.
+                    stack.push(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item));
+                }
+            }
         }
 
-        return (mazeDFS[mazeDFS.length - 1][mazeDFS[mazeDFS.length - 1].length - 1] == 1); //checking solely for if DFS reached the goal
+        return false;
     }
 
     public static ArrayList<Index> findShortestPath(Index[][] indexMaze) {
@@ -209,7 +228,7 @@ public class Main {
                     }
                     System.out.println();
                 }*/
-                //printMaze(mazeBFS); // DEBUG
+                printMazeASCII(mazeBFS); // DEBUG
 
                 return findShortestPath(indexMaze);
             }
@@ -265,41 +284,46 @@ public class Main {
      * @param queue - The queue to add neighbors to.
      */
     private static void AStarCheckNeighbors(int[][] maze, Index[][] indexMaze, Index item, PriorityQueue<Index> queue) {
+        Index start = new Index(0, 0, 0, null);
         Index goal = new Index(maze.length - 1, maze.length - 1, 0, null);
 
         // Check neighbor below item. (row + 1, col)
         if(item.getRow() + 1 < maze.length && maze[item.getRow() + 1][item.getCol()] == 0) {    // Bound check & not visited.
             maze[item.getRow() + 1][item.getCol()] = 1; // Mark visited.
-            Index neighbor = new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item);
+            Index neighbor = new Index(item.getRow() + 1, item.getCol(), 0, item);
+            neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
-            neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
+            neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
 
         // Check neighbor right of item. (row, col + 1)
         if(item.getCol() + 1 < maze.length && maze[item.getRow()][item.getCol() + 1] == 0) {    // Bound check & not visited.
             maze[item.getRow()][item.getCol() + 1] = 1; // Mark visited.
-            Index neighbor = new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item);
+            Index neighbor = new Index(item.getRow(), item.getCol() + 1, 0, item);
+            neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
-            neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
+            neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
 
         // Check neighbor above item. (row - 1, col)
         if(item.getRow() - 1 >= 0 && maze[item.getRow() - 1][item.getCol()] == 0) {    // Bound check & not visited.
             maze[item.getRow() - 1][item.getCol()] = 1; // Mark visited.
-            Index neighbor = new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item);
+            Index neighbor = new Index(item.getRow() - 1, item.getCol(), 0, item);
+            neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
-            neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
+            neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
 
         // Check neighbor left of item. (row, col - 1)
         if(item.getCol() - 1 >= 0 && maze[item.getRow()][item.getCol() - 1] == 0) {    // Bound check & not visited.
             maze[item.getRow()][item.getCol() - 1] = 1; // Mark visited.
-            Index neighbor = new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item);
+            Index neighbor = new Index(item.getRow(), item.getCol() - 1, 0, item);
+            neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
-            neighbor.setScore(item.getDistance() + Index.distTwoPoints(neighbor, goal));
+            neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
             queue.add(neighbor);
         }
     }
@@ -325,8 +349,8 @@ public class Main {
 
             // If goal ...
             if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
-                //printMaze(mazeAStar); // DEBUG
-                return findShortestPath(indexMaze);
+                printMazeASCII(mazeAStar); // DEBUG
+                return null; // findShortestPath(indexMaze);
             }
 
             // Check neighbors of item.
@@ -427,19 +451,41 @@ public class Main {
         }
     }
 
+    /**
+     * Basically prints a more readable maze.
+     * @param maze - Maze to print.
+     */
+    public static void printMazeASCII(int[][] maze) {
+        for(int row = 0; row < maze.length; row++) {
+            for(int col = 0; col < maze[row].length; col++) {
+                
+                if(maze[row][col] == 0) {
+                    System.out.print("░░");
+                } else if(maze[row][col] == 1) {
+                    System.out.print("▓▓");
+                } else if(maze[row][col] == 2) {
+                    System.out.print("██");
+                } else {    // Everything else for now.
+                    System.out.print(maze[row][col] + " ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
         long startTime;
         long endTime;
 
-        /*
+        generateMaze(20, 0.3, false);
+        
         System.out.println("Original maze:");
-        printMaze(maze);
-        System.out.println();*/
+        printMazeASCII(maze);
+        System.out.println();
 
-        /*
         System.out.println("Depth-First Search (DFS):");
         startTime = System.nanoTime();
-        System.out.println(DFSMaze());
+        DFSMaze();
         endTime = System.nanoTime();
         System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");
         System.out.println();
@@ -447,16 +493,16 @@ public class Main {
 
         System.out.println("Breadth-First Search (BFS):");
         startTime = System.nanoTime();
-        System.out.println(BFSMaze());
+        BFSMaze();
         endTime = System.nanoTime();
         System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");
         System.out.println();
 
         System.out.println("A* Search:");
         startTime = System.nanoTime();
-        System.out.println(AStarMaze());
+        AStarMaze();
         endTime = System.nanoTime();
-        System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");*/
+        System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");
 
         //At the start, a randomly selected open spot in the maze is set to "on fire"
         /*
@@ -465,9 +511,11 @@ public class Main {
         advanceFireOneStep(maze, 0.3); //the fire spreads
         printMaze(maze);*/
 
+        
         /*  STRATEGY ONE  */
         //At the start of the maze, wherever the fire is, solve for the shortest path from upper left to lower right,
         // and follow it until the agent exits the maze or burns
+        /*
         ArrayList<Index> shortestPath;
         do {
             generateMaze(10, 0.3, true);
@@ -495,5 +543,7 @@ public class Main {
             System.out.println("Agent has reached the end.");
             //printMaze(maze); //debug
         }
+        */
+
     }
 }

@@ -9,7 +9,7 @@ import java.util.Comparator;
 public class Index implements Comparable<Index>, Comparator<Index> {
     private int row;
     private int col;
-    private int dist;
+    private double dist;
     private Index parent;
     private double score;
 
@@ -18,7 +18,7 @@ public class Index implements Comparable<Index>, Comparator<Index> {
      * @param row - Row of index.
      * @param col - Column of index.
      */
-    public Index(int row, int col, int dist, Index parent) {
+    public Index(int row, int col, double dist, Index parent) {
         this.row = row;
         this.col = col;
         this.dist = dist;
@@ -122,7 +122,7 @@ public class Index implements Comparable<Index>, Comparator<Index> {
      * Setter method for distance from goal.
      * @param dist - The distance from goal.
      */
-    public void setDist(int dist) {
+    public void setDist(double dist) {
         this.dist = dist;
     }
 
@@ -170,7 +170,7 @@ public class Index implements Comparable<Index>, Comparator<Index> {
      * Getter method for distance from goal.
      * @return Distance from goal.
      */
-    public int getDistance() {
+    public double getDistance() {
         return dist;
     }
 
