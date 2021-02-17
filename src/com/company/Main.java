@@ -470,27 +470,30 @@ public class Main {
         // and follow it until the agent exits the maze or burns
         ArrayList<Index> shortestPath;
         do {
-            generateMaze(100, 0.3, true);
+            generateMaze(10, 0.3, true);
             shortestPath = BFSMaze();
         } while(shortestPath == null);
+        //printMaze(maze); //debug
 
         Index agent = new Index(0, 0);
         int i = 1;
         while(agent.getRow() != maze.length - 1 || agent.getCol() != maze.length - 1) {
-            Index nextSpot = shortestPath.get(i);
-            agent.setRow(nextSpot.getRow());
-            agent.setCol(nextSpot.getCol());
+            Index nextSpot = shortestPath.get(i); //object that obtains the next spot to move to in the shortestPath
+            agent.setRow(nextSpot.getRow()); //agent steps to nextSpot's row
+            agent.setCol(nextSpot.getCol()); //agent steps to nextSpot's col
             System.out.println("Agent has stepped to: " + agent);
 
             if(maze[agent.getRow()][agent.getCol()] == 3) { //check if the spot the agent just moved to is on fire
                 System.out.println("Agent has stepped in fire.");
-                break;
+                //printMaze(maze); //debug
+                break; //the task is over once the agent steps into fire
             }
-            advanceFireOneStep(maze, 0.3);
+            advanceFireOneStep(maze, 0.3); //agent has stepped once, now the fire has to advance once
             i ++;
         }
         if(agent.getRow() == maze.length - 1 && agent.getCol() == maze.length - 1) {
             System.out.println("Agent has reached the end.");
+            //printMaze(maze); //debug
         }
     }
 }
