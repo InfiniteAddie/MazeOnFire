@@ -297,7 +297,7 @@ public class Main {
             maze[item.getRow() + 1][item.getCol()] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow() + 1, item.getCol(), 0, item);
             neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
-            neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
+            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal)); // f(n) = g(n) + h(n)
             queue.add(neighbor);
 
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
@@ -308,7 +308,7 @@ public class Main {
             maze[item.getRow()][item.getCol() + 1] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow(), item.getCol() + 1, 0, item);
             neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
-            neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
+            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal)); // f(n) = g(n) + h(n)
             queue.add(neighbor);
 
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
@@ -319,7 +319,7 @@ public class Main {
             maze[item.getRow()][item.getCol() - 1] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow(), item.getCol() - 1, 0, item);
             neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
-            neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
+            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal)); // f(n) = g(n) + h(n)
             queue.add(neighbor);
 
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
@@ -330,7 +330,7 @@ public class Main {
             maze[item.getRow() - 1][item.getCol()] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow() - 1, item.getCol(), 0, item);
             neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
-            neighbor.setScore(neighbor.getDistance() + Index.distTwoPoints(neighbor, goal));
+            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal)); // f(n) = g(n) + h(n)
             queue.add(neighbor);
 
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
@@ -486,7 +486,7 @@ public class Main {
         long startTime;
         long endTime;
 
-        generateMaze(20, 0.3, false);
+        generateMaze(15, 0.3, false);
         
         System.out.println("Original maze:");
         printMazeASCII(maze);
@@ -496,7 +496,7 @@ public class Main {
         startTime = System.nanoTime();
         DFSMaze();
         endTime = System.nanoTime();
-        System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");
+        System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
         System.out.println();
 
 
@@ -504,14 +504,14 @@ public class Main {
         startTime = System.nanoTime();
         BFSMaze();
         endTime = System.nanoTime();
-        System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");
+        System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
         System.out.println();
 
         System.out.println("A* Search:");
         startTime = System.nanoTime();
         AStarMaze();
         endTime = System.nanoTime();
-        System.out.println("Time elapsed: " + (endTime - startTime)/1000000000 + " s");
+        System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
 
         //At the start, a randomly selected open spot in the maze is set to "on fire"
         /*

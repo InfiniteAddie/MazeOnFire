@@ -18,7 +18,7 @@ This will send all terminal outputs to [overwrite] a text file to preserve line 
 
 Open this text file in Notepad, ESPECIALLY when printing with the printMazeASCII method. It'll make more sense than trying to read it from the terminal. Make sure word wrap is off (look under Format > Word Wrap and make sure there is no check mark).
 
-## Time elapsed: 0s
+## Time elapsed: 0.000 s
 Time elapsed is in seconds, and it tends to round to 0 in the conversion from nanoseconds to seconds, because the difference is insignificant. Try upping the dimensions of the maze to increase the time.
 
 # Todo
@@ -53,8 +53,7 @@ Most Recent → Oldest
 4. Fixed score assignments for A*.
 5. Added earlier exit condition for DFS.
     - When goal is popped from the stack, it can exit.
-6. Fixed #1 - DFS ignoring walls.
-    - Rewrote neighbor check of DFS to not ignore walls.
+6. Fix #1: Rewrote neighbor check of DFS to not ignore walls.
 7. Added printMazeASCII method.
     - Same thing as printMaze, but it prints a maze that is friendlier to the human eyes.
     - See notes on [Testing the Search Algorithms](#Testing-Notes).
@@ -68,3 +67,7 @@ Most Recent → Oldest
 2. Shifted order of neighbors checked for BFS to prioritize bottom right.
     - Queue is first in, first out (FIFO), so: down → right → left → up.
 3. Organized a few methods and comments.
+
+### 4:30 PM
+1. Fixed score assignments for A* (again).
+2. Formatted time elapsed to show 3 decimal places.
