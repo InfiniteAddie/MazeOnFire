@@ -151,6 +151,22 @@ public class Index implements Comparable<Index>, Comparator<Index> {
     }
 
     /**
+     * Setter method for row.
+     * @param row - The row.
+     */
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    /**
+     * Setter method for col.
+     * @param col - The col.
+     */
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    /**
      * Getter method for distance from goal.
      * @return Distance from goal.
      */
