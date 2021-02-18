@@ -288,8 +288,16 @@ public class Main {
             }
         }
         //printMaze(mazeBFS); // DEBUG
-        System.out.println("# Nodes Explored: " + 0);
-        return new PathInfo(null, 0);
+        int numNodesExplored = 0;
+        for(int i = 0; i < mazeBFS.length; i ++) {
+            for(int j = 0; j < mazeBFS.length; j ++) {
+                if(mazeBFS[i][j] == 1) {
+                    numNodesExplored ++;
+                }
+            }
+        }
+        System.out.println("# Nodes Explored: " + numNodesExplored);
+        return new PathInfo(null, numNodesExplored);
     }
 
     /**
@@ -398,7 +406,17 @@ public class Main {
         }
 
         //printMaze(mazeAStar); // DEBUG
-        return new PathInfo(null, 0);
+        int numNodesExplored = 0;
+        for(int i = 0; i < mazeAStar.length; i ++) {
+            for(int j = 0; j < mazeAStar.length; j ++) {
+                if(mazeAStar[i][j] == 1) {
+                    numNodesExplored ++;
+                }
+            }
+        }
+        System.out.println("# Nodes Explored: " + numNodesExplored);
+
+        return new PathInfo(null, numNodesExplored);
     }
 
     /**
@@ -625,7 +643,8 @@ public class Main {
             avg = avg / 100.0;
             System.out.println("Average # Nodes Explored: " + avg + "\n");
         }
-         */
+        */
+
         for(double i = 0.1; i <= 1.0; i += 0.1) {
             double avg = 0;
             System.out.println("--For p = " + i);
@@ -637,6 +656,7 @@ public class Main {
             avg = avg / 100.0;
             System.out.println("Average # Nodes Explored: " + avg + "\n");
         }
+
 
     }
 }
