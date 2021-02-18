@@ -242,7 +242,7 @@ public class Main {
                         }
                     }
                 }
-                System.out.println("# Nodes Explored: " + numNodesExplored);
+                //System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for BFS
                 return new PathInfo(findShortestPath(indexMaze), numNodesExplored);
             }
 
@@ -296,7 +296,7 @@ public class Main {
                 }
             }
         }
-        System.out.println("# Nodes Explored: " + numNodesExplored);
+        //System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for BFS
         return new PathInfo(null, numNodesExplored);
     }
 
@@ -396,7 +396,7 @@ public class Main {
                         }
                     }
                 }
-                System.out.println("# Nodes Explored: " + numNodesExplored);
+                // System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for A*
 
                 return new PathInfo(shortestPath, numNodesExplored);
             }
@@ -414,7 +414,7 @@ public class Main {
                 }
             }
         }
-        System.out.println("# Nodes Explored: " + numNodesExplored);
+        //System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for A*
 
         return new PathInfo(null, numNodesExplored);
     }
@@ -531,6 +531,47 @@ public class Main {
         }
     }
 
+    /**
+     * Method that implements Strategy One of stepping through the maze.
+     * @param q - The flammability.
+     * @return true if the agent reaches the end, false otherwise.
+     */
+    public static boolean stratOne(double q) {
+        /*  STRATEGY ONE  */
+        //At the start of the maze, wherever the fire is, solve for the shortest path from upper left to lower right,
+        // and follow it until the agent exits the maze or burns
+
+        //Generate a solvable maze.
+        PathInfo pathInfo;
+        do {
+            generateMaze(100, 0.3, true);
+            pathInfo = BFSMaze();
+        } while(pathInfo.getShortestPath() == null);
+        //printMaze(maze); //debug
+
+        //have the agent start at the starting point, and have them step through.
+        Index agent = new Index(0, 0);
+        int i = 1;
+        while(agent.getRow() != maze.length - 1 || agent.getCol() != maze.length - 1) {
+            Index nextSpot = pathInfo.getShortestPath().get(i); //object that obtains the next spot to move to in the shortestPath
+            agent.setRow(nextSpot.getRow()); //agent steps to nextSpot's row
+            agent.setCol(nextSpot.getCol()); //agent steps to nextSpot's col
+            //System.out.println("Agent has stepped to: " + agent); //debug
+
+            if(maze[agent.getRow()][agent.getCol()] == 3) { //check if the spot the agent just moved to is on fire
+                //System.out.println("Agent has stepped in fire."); //debug
+                //printMaze(maze); //debug
+                return false; //the task is over once the agent steps into fire
+            }
+            advanceFireOneStep(maze, q); //agent has stepped once, now the fire has to advance once
+            i ++;
+        }
+
+        //System.out.println("Agent has reached the end."); //debug
+        //printMaze(maze); //debug
+        return true;
+    }
+
     public static void main(String[] args) {
         long startTime;
         long endTime;
@@ -573,41 +614,6 @@ public class Main {
         advanceFireOneStep(maze, 0.3); //the fire spreads
         printMaze(maze);*/
 
-        
-        /*  STRATEGY ONE  */
-        //At the start of the maze, wherever the fire is, solve for the shortest path from upper left to lower right,
-        // and follow it until the agent exits the maze or burns
-        /*
-        ArrayList<Index> shortestPath;
-        do {
-            generateMaze(10, 0.3, true);
-            shortestPath = BFSMaze();
-        } while(shortestPath == null);
-        //printMaze(maze); //debug
-
-        Index agent = new Index(0, 0);
-        int i = 1;
-        while(agent.getRow() != maze.length - 1 || agent.getCol() != maze.length - 1) {
-            Index nextSpot = shortestPath.get(i); //object that obtains the next spot to move to in the shortestPath
-            agent.setRow(nextSpot.getRow()); //agent steps to nextSpot's row
-            agent.setCol(nextSpot.getCol()); //agent steps to nextSpot's col
-            System.out.println("Agent has stepped to: " + agent);
-
-            if(maze[agent.getRow()][agent.getCol()] == 3) { //check if the spot the agent just moved to is on fire
-                System.out.println("Agent has stepped in fire.");
-                //printMaze(maze); //debug
-                break; //the task is over once the agent steps into fire
-            }
-            advanceFireOneStep(maze, 0.3); //agent has stepped once, now the fire has to advance once
-            i ++;
-        }
-        if(agent.getRow() == maze.length - 1 && agent.getCol() == maze.length - 1) {
-            System.out.println("Agent has reached the end.");
-            //printMaze(maze); //debug
-        }
-        */
-
-
         /* DFS Plot */
         /*
         for(double i = 0.1; i <= 1.0; i += 0.1) {
@@ -629,7 +635,7 @@ public class Main {
         }
          */
 
-        /* BFS Plot + A* Plot */
+        /* BFS Plot and A* Plot */
         //Number of nodes explored by BFS vs. obstacle density p
         /*
         for(double i = 0.1; i <= 1.0; i += 0.1) {
@@ -644,7 +650,7 @@ public class Main {
             System.out.println("Average # Nodes Explored: " + avg + "\n");
         }
         */
-
+        /*
         for(double i = 0.1; i <= 1.0; i += 0.1) {
             double avg = 0;
             System.out.println("--For p = " + i);
@@ -656,7 +662,23 @@ public class Main {
             avg = avg / 100.0;
             System.out.println("Average # Nodes Explored: " + avg + "\n");
         }
+        */
 
+        /* Strat One Plot */
+        //Plot, for Strategy 1, 2, and 3, a graph of 'average strategy success rate’ vs ‘flammability q’ at p= 0.3.
+        for(double q = 0.1; q <= 1.0; q += 0.1) {
+            double avgSuccess = 0;
+            System.out.println("--For q = " + q);
+            for(int j = 0; j < 100; j ++) {
+                boolean attempt = stratOne(q); //Implement strat one and see whether the agent reached or not
+                System.out.println(attempt);
+                if(attempt) {
+                    avgSuccess += 1.0;
+                }
+            }
+            avgSuccess = avgSuccess / 100.0;
+            System.out.println("Average Success: " + avgSuccess + "\n");
+        }
 
     }
 }
