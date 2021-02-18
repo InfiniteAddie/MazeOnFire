@@ -65,7 +65,6 @@ public class Main {
         int j = indexMaze[i].length - 1;
         while(i >= 0 && j >= 0) {
             //check if loop has reached start node
-            //System.out.println(indexMaze[i][j]);
             if((i == 0 && j == 1) || (i == 1 && j == 0) || (i == 0 && j == 0)) {
                 shortestPath.add(indexMaze[0][0]);
                 break;
@@ -157,7 +156,6 @@ public class Main {
      */
     public static boolean DFSMaze() {
         int[][] mazeDFS = copyMaze();   // Copy maze.
-
         Stack<Index> stack = new Stack<Index>(); // Initialize fringe in the form of a stack.
         stack.push(new Index(0, 0, 0, null)); // Start by pushing the source index.
 
@@ -167,7 +165,7 @@ public class Main {
 
             // If goal ...
             if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
-                printMazeASCII(mazeDFS); // DEBUG
+                //printMazeASCII(mazeDFS); // DEBUG
                 return true;
             }
 
@@ -233,8 +231,18 @@ public class Main {
                     }
                     System.out.println();
                 }*/
-                printMazeASCII(mazeBFS); // DEBUG
+                //printMazeASCII(mazeBFS); // DEBUG
 
+                //Count the number of nodes explored by BFS
+                int numNodesExplored = 0;
+                for(int i = 0; i < mazeBFS.length; i ++) {
+                    for(int j = 0; j < mazeBFS.length; j ++) {
+                        if(mazeBFS[i][j] == 1) {
+                            numNodesExplored ++;
+                        }
+                    }
+                }
+                System.out.println("# Nodes Explored: " + numNodesExplored);
                 return findShortestPath(indexMaze);
             }
 
@@ -348,7 +356,7 @@ public class Main {
         int[][] mazeAStar = copyMaze();
         Index[][] indexMaze = new Index[mazeAStar.length][mazeAStar[0].length];
         PriorityQueue<Index> minHeap = new PriorityQueue<Index>();
-        maze[0][0] = 1; // Mark start visited.
+        mazeAStar[0][0] = 1; // Mark start visited.
         indexMaze[0][0] = new Index(0, 0, 0, null);
         minHeap.add(new Index(0, 0, 0, null));  // Add start to queue.
         
@@ -357,9 +365,17 @@ public class Main {
             Index item = minHeap.remove();  // Remove item from queue.
 
             // If goal ...
-            if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
-                printMazeASCII(mazeAStar); // DEBUG
-                return null; // findShortestPath(indexMaze);
+            if(item.getRow() == mazeAStar.length - 1 && item.getCol() == mazeAStar.length - 1) {
+                //printMazeASCII(mazeAStar); // DEBUG
+                ArrayList<Index> shortestPath = new ArrayList<Index>();
+                Index current = indexMaze[mazeAStar.length - 1][mazeAStar.length - 1];
+                while(current.getRow() != 0 || current.getCol() != 0) {
+                    shortestPath.add(current);
+                    current = current.getParent();
+                }
+                shortestPath.add(indexMaze[0][0]);
+                Collections.reverse(shortestPath);
+                return shortestPath; // findShortestPath(indexMaze);
             }
 
             // Check neighbors of item.
@@ -486,6 +502,7 @@ public class Main {
         long startTime;
         long endTime;
 
+        /*
         generateMaze(15, 0.3, false);
         
         System.out.println("Original maze:");
@@ -512,6 +529,9 @@ public class Main {
         AStarMaze();
         endTime = System.nanoTime();
         System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
+         */
+
+        //System.out.println("Hi.");
 
         //At the start, a randomly selected open spot in the maze is set to "on fire"
         /*
@@ -553,6 +573,32 @@ public class Main {
             //printMaze(maze); //debug
         }
         */
+
+
+        /* DFS Plot */
+        /*
+        for(double i = 0.1; i <= 1.0; i += 0.1) {
+            int numSuccess = 0;
+            int numAttempts = 0;
+            for(int j = 0; j < 100; j ++) {
+                generateMaze(750, i, false);
+                boolean reachable = DFSMaze();
+                if(reachable) {
+                    System.out.println(true);
+                    numSuccess ++;
+                }
+                else {
+                    System.out.println(false);
+                }
+                numAttempts ++;
+            }
+            System.out.println("--For p = " + i + ", P[G reachable] = " + ((double)numSuccess / (double)numAttempts) + "\n");
+        }
+         */
+
+        /* BFS Plot + A* Plot */
+        //Number of nodes explored by BFS vs. obstacle density p
+
 
     }
 }
