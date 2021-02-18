@@ -613,12 +613,25 @@ public class Main {
 
         /* BFS Plot + A* Plot */
         //Number of nodes explored by BFS vs. obstacle density p
+        /*
         for(double i = 0.1; i <= 1.0; i += 0.1) {
             double avg = 0;
             System.out.println("--For p = " + i);
             for(int j = 0; j < 100; j ++) {
                 generateMaze(750, i, false);
                 PathInfo pathInfo = BFSMaze();
+                avg += pathInfo.getNumNodesExplored();
+            }
+            avg = avg / 100.0;
+            System.out.println("Average # Nodes Explored: " + avg + "\n");
+        }
+         */
+        for(double i = 0.1; i <= 1.0; i += 0.1) {
+            double avg = 0;
+            System.out.println("--For p = " + i);
+            for(int j = 0; j < 100; j ++) {
+                generateMaze(750, i, false);
+                PathInfo pathInfo = AStarMaze();
                 avg += pathInfo.getNumNodesExplored();
             }
             avg = avg / 100.0;
