@@ -209,7 +209,7 @@ public class Main {
      * /TODO: (ideas): HashMap that stores information on a particular spot in the maze, and points to a parent (seems wack tbh)
      * /TODO: (ideas): for every part of the maze that has a 1, have that spot in a parallel matrix be equal to the distance from the source
      */
-    public static ArrayList<Index> BFSMaze() {
+    public static PathInfo BFSMaze() {
         int[][] mazeBFS = copyMaze();                   // Copy maze.
         Queue<Index> queue = new LinkedList<Index>();   // Define queue.
         mazeBFS[0][0] = 1;          // Mark (0, 0) explored.
@@ -243,7 +243,7 @@ public class Main {
                     }
                 }
                 System.out.println("# Nodes Explored: " + numNodesExplored);
-                return findShortestPath(indexMaze);
+                return new PathInfo(findShortestPath(indexMaze), numNodesExplored);
             }
 
             // For all neighbors adjacent to item ... (item can have 0 - 4 viable neighbors)
@@ -288,7 +288,8 @@ public class Main {
             }
         }
         //printMaze(mazeBFS); // DEBUG
-        return null;
+        System.out.println("# Nodes Explored: " + 0);
+        return new PathInfo(null, 0);
     }
 
     /**
@@ -352,7 +353,7 @@ public class Main {
      * h(n) is an estimated distance from n to goal.
      * @return True if goal is reachable; false otherwise.
      */
-    public static ArrayList<Index> AStarMaze() {
+    public static PathInfo AStarMaze() {
         int[][] mazeAStar = copyMaze();
         Index[][] indexMaze = new Index[mazeAStar.length][mazeAStar[0].length];
         PriorityQueue<Index> minHeap = new PriorityQueue<Index>();
@@ -369,13 +370,27 @@ public class Main {
                 //printMazeASCII(mazeAStar); // DEBUG
                 ArrayList<Index> shortestPath = new ArrayList<Index>();
                 Index current = indexMaze[mazeAStar.length - 1][mazeAStar.length - 1];
+
+                //Determine the exact route of the shortest path.
                 while(current.getRow() != 0 || current.getCol() != 0) {
                     shortestPath.add(current);
                     current = current.getParent();
                 }
                 shortestPath.add(indexMaze[0][0]);
                 Collections.reverse(shortestPath);
-                return shortestPath; // findShortestPath(indexMaze);
+
+                //Determine the number of nodes visited by A*.
+                int numNodesExplored = 0;
+                for(int i = 0; i < mazeAStar.length; i ++) {
+                    for(int j = 0; j < mazeAStar.length; j ++) {
+                        if(mazeAStar[i][j] == 1) {
+                            numNodesExplored ++;
+                        }
+                    }
+                }
+                System.out.println("# Nodes Explored: " + numNodesExplored);
+
+                return new PathInfo(shortestPath, numNodesExplored);
             }
 
             // Check neighbors of item.
@@ -383,7 +398,7 @@ public class Main {
         }
 
         //printMaze(mazeAStar); // DEBUG
-        return null;
+        return new PathInfo(null, 0);
     }
 
     /**
@@ -598,7 +613,17 @@ public class Main {
 
         /* BFS Plot + A* Plot */
         //Number of nodes explored by BFS vs. obstacle density p
-
+        for(double i = 0.1; i <= 1.0; i += 0.1) {
+            double avg = 0;
+            System.out.println("--For p = " + i);
+            for(int j = 0; j < 100; j ++) {
+                generateMaze(750, i, false);
+                PathInfo pathInfo = BFSMaze();
+                avg += pathInfo.getNumNodesExplored();
+            }
+            avg = avg / 100.0;
+            System.out.println("Average # Nodes Explored: " + avg + "\n");
+        }
 
     }
 }
