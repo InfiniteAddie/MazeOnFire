@@ -154,7 +154,7 @@ public class Main {
      * DFS search for goal.
      * @return True if goal is reachable; false otherwise.
      */
-    public static boolean DFSMaze() {
+    public static boolean DFSMaze(boolean print) {
         int[][] mazeDFS = copyMaze();   // Copy maze.
         Stack<Index> stack = new Stack<Index>(); // Initialize fringe in the form of a stack.
         stack.push(new Index(0, 0, 0, null)); // Start by pushing the source index.
@@ -165,7 +165,9 @@ public class Main {
 
             // If goal ...
             if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
-                //printMazeASCII(mazeDFS); // DEBUG
+                if(print) {
+                    printMaze(mazeDFS);
+                }
                 return true;
             }
 
@@ -199,9 +201,17 @@ public class Main {
             }
         }
 
+        if(print) {
+            printMaze(mazeDFS);
+        }
         return false;
     }
 
+    /**
+     * Helper method for strategy.
+     * @param agent - Location of agent.
+     * @return Path information.
+     */
     public static PathInfo BFSFromPosition(Index agent) {
         int[][] mazeBFS = copyMaze();
         Queue<Index> queue = new LinkedList<Index>();
@@ -301,7 +311,7 @@ public class Main {
      * /TODO: (ideas): HashMap that stores information on a particular spot in the maze, and points to a parent (seems wack tbh)
      * /TODO: (ideas): for every part of the maze that has a 1, have that spot in a parallel matrix be equal to the distance from the source
      */
-    public static PathInfo BFSMaze() {
+    public static PathInfo BFSMaze(boolean print) {
         int[][] mazeBFS = copyMaze();                   // Copy maze.
         Queue<Index> queue = new LinkedList<Index>();   // Define queue.
         mazeBFS[0][0] = 1;          // Mark (0, 0) explored.
@@ -326,6 +336,7 @@ public class Main {
                 //printMazeASCII(mazeBFS); // DEBUG
 
                 //Count the number of nodes explored by BFS
+                
                 int numNodesExplored = 0;
                 for(int i = 0; i < mazeBFS.length; i ++) {
                     for(int j = 0; j < mazeBFS.length; j ++) {
@@ -335,6 +346,10 @@ public class Main {
                     }
                 }
                 //System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for BFS
+
+                if(print) {
+                    printMaze(mazeBFS);
+                }
                 return new PathInfo(findShortestPath(indexMaze), numNodesExplored);
             }
 
@@ -389,6 +404,10 @@ public class Main {
             }
         }
         //System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for BFS
+
+        if(print) {
+            printMaze(mazeBFS);
+        }
         return new PathInfo(null, numNodesExplored);
     }
 
@@ -453,7 +472,7 @@ public class Main {
      * h(n) is an estimated distance from n to goal.
      * @return True if goal is reachable; false otherwise.
      */
-    public static PathInfo AStarMaze() {
+    public static PathInfo AStarMaze(boolean print) {
         int[][] mazeAStar = copyMaze();
         Index[][] indexMaze = new Index[mazeAStar.length][mazeAStar[0].length];
         PriorityQueue<Index> minHeap = new PriorityQueue<Index>();
@@ -490,6 +509,9 @@ public class Main {
                 }
                 // System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for A*
 
+                if(print) {
+                    printMaze(mazeAStar);
+                }
                 return new PathInfo(shortestPath, numNodesExplored);
             }
 
@@ -508,6 +530,9 @@ public class Main {
         }
         //System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for A*
 
+        if(print) {
+            printMaze(mazeAStar);
+        }
         return new PathInfo(null, numNodesExplored);
     }
 
@@ -610,11 +635,11 @@ public class Main {
             for(int col = 0; col < maze[row].length; col++) {
                 
                 if(maze[row][col] == 0) {
-                    System.out.print("░░");
+                    System.out.print("\u2591\u2591");
                 } else if(maze[row][col] == 1) {
-                    System.out.print("▓▓");
+                    System.out.print("\u2593\u2593");
                 } else if(maze[row][col] == 2) {
-                    System.out.print("██");
+                    System.out.print("\u2588\u2588");
                 } else {    // Everything else for now.
                     System.out.print(maze[row][col] + " ");
                 }
@@ -637,7 +662,7 @@ public class Main {
         PathInfo pathInfo;
         do {
             generateMaze(100, 0.3, true);
-            pathInfo = BFSMaze();
+            pathInfo = BFSMaze(false);
         } while(pathInfo.getShortestPath() == null);
         //printMaze(maze); //debug
 
@@ -679,7 +704,7 @@ public class Main {
         PathInfo pathInfo;
         do {
             generateMaze(100, 0.3, true);
-            pathInfo = BFSMaze();
+            pathInfo = BFSMaze(false);
         } while(pathInfo.getShortestPath() == null);
 
         Index agent = new Index(0, 0);
@@ -707,40 +732,151 @@ public class Main {
         return true;
     }
 
+    /**
+     * Method that implements Strategy 3 of stepping through the maze.
+     * @param q - The flammability.
+     * @return true if the agent reaches the end, false otherwise.
+     */
+    public static boolean stratThree(double q) {
+        // TODO
+        return false;
+    }
+
     public static void main(String[] args) {
         long startTime;
         long endTime;
 
-        /*
-        generateMaze(15, 0.3, false);
-        
-        System.out.println("Original maze:");
-        printMazeASCII(maze);
-        System.out.println();
+        generateMaze(10, 0.3, false);   // Generate a maze by default.
 
-        System.out.println("Depth-First Search (DFS):");
-        startTime = System.nanoTime();
-        DFSMaze();
-        endTime = System.nanoTime();
-        System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
-        System.out.println();
+        Scanner sc = new Scanner(System.in);
 
+        String help = "Commands\nq | quit: quit the program\n" 
+            + "g: generate new maze\np | print: print maze\nr: a reference for values printed by 'p' or 'print'\n"
+            + "pr: print readable version of maze\ndfs: run DFS on maze\n"
+            + "bfs: run BFS on maze\na | a*: run A* on maze\n"
+            + "strat1: run strategy 1 on maze\nstrat2: run strategy 2 on maze\nstrat3: run strategy 3 on maze\n"
+            + "h | help: show this list again\nh [g|p|print|pr] | help [g|p|print|pr]: get more info on command";
 
-        System.out.println("Breadth-First Search (BFS):");
-        startTime = System.nanoTime();
-        BFSMaze();
-        endTime = System.nanoTime();
-        System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
-        System.out.println();
+        System.out.println(help + "\n");
 
-        System.out.println("A* Search:");
-        startTime = System.nanoTime();
-        AStarMaze();
-        endTime = System.nanoTime();
-        System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
-         */
+        while(true) {
+            String command = sc.nextLine();
+            if(command.equalsIgnoreCase("q") || command.equalsIgnoreCase("quit")) { // Quit program.
+                break;
+            } else if(command.equalsIgnoreCase("g")) {  // Generate new maze.
+                // Default values.
+                int dim = 10;
+                double p = 0.3;
 
-        //System.out.println("Hi.");
+                try {
+                    System.out.print("Enter maze dimension greater than 0 (integer): ");
+                    dim = sc.nextInt();
+                    sc.nextLine();
+
+                    while(dim < 1) {
+                        System.out.print("Enter maze dimension greater than 0 (integer): ");
+                        dim = sc.nextInt();
+                        sc.nextLine();
+                    }
+
+                    System.out.print("Enter obstacle density between 0.0 and 1.0 (double): ");
+                    p = sc.nextDouble();
+                    sc.nextLine();
+
+                    while(p < 0.0 || p > 1.0) {
+                        System.out.print("Enter obstacle density between 0.0 and 1.0 (double): ");
+                        p = sc.nextDouble();
+                        sc.nextLine();
+                    }
+
+                    generateMaze(dim, p, false);
+                } catch (Exception e) {
+                    System.out.println("Please enter numbers only!");
+                }
+                System.out.println();
+            } else if(command.equalsIgnoreCase("p") || command.equalsIgnoreCase("print")) { // Print maze.
+                System.out.println("Original maze:");
+                printMaze(maze);
+                System.out.println();
+            } else if(command.equalsIgnoreCase("r")) {
+                System.out.println("0: Free space\n1: Explored space\n2: Maze wall/obstacle\n3: Fire\n");
+            } else if(command.equalsIgnoreCase("pr")) { // Print maze (readable).
+                System.out.println("Original maze:");
+                printMazeASCII(maze);
+                System.out.println();
+            } else if(command.equalsIgnoreCase("dfs")) {    // DFS
+                System.out.println("Depth-First Search (DFS):");
+                System.out.println("Print result? (y/n): ");
+                String answer = sc.nextLine();
+
+                startTime = System.nanoTime();
+                DFSMaze(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes"));
+                endTime = System.nanoTime();
+
+                System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
+                System.out.println();
+            } else if(command.equalsIgnoreCase("bfs")) {    // BFS
+                System.out.println("Breadth-First Search (BFS):");
+                System.out.println("Print result? (y/n): ");
+                String answer = sc.nextLine();
+
+                startTime = System.nanoTime();
+                BFSMaze(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes"));
+                endTime = System.nanoTime();
+
+                System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
+                System.out.println();
+            } else if(command.equalsIgnoreCase("a") || command.equalsIgnoreCase("a*")) {    // A*
+                System.out.println("A* Search:");
+                System.out.println("Print result? (y/n): ");
+                String answer = sc.nextLine();
+
+                startTime = System.nanoTime();
+                AStarMaze(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes"));
+                endTime = System.nanoTime();
+
+                System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
+                System.out.println();
+            } else if(command.equalsIgnoreCase("strat1") || command.equalsIgnoreCase("strat2") || command.equalsIgnoreCase("strat2")) { // Strategies
+                try {
+                    System.out.print("Enter flammability rate between 0.0 and 1.0 (double): ");
+                    double q = sc.nextDouble();
+                    sc.nextLine();
+    
+                    while(q < 0.0 || q > 1.0) {
+                        System.out.print("Enter flammability rate between 0.0 and 1.0 (double): ");
+                        q = sc.nextDouble();
+                        sc.nextLine();
+                    }
+    
+                    if(command.equalsIgnoreCase("strat1")) {
+                        stratOne(q);
+                    } else if(command.equalsIgnoreCase("strat2")) {
+                        stratTwo(q);
+                    } else if(command.equalsIgnoreCase("strat3")) {
+                        stratThree(q);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Please enter numbers only!");
+                }
+                System.out.println();
+            } else if(command.equalsIgnoreCase("h") || command.equalsIgnoreCase("help")) {  // Help
+                System.out.println(help + "\n");
+            } else if(command.equalsIgnoreCase("h g") || command.equalsIgnoreCase("help g")) {
+                System.out.println("By default, this program pre-generates a 10x10 maze with obstacle density p = 0.3.");
+                System.out.println("This command will prompt you for a dimension (integers > 0 only) and an obstacle density (numbers and decimals between 0.0 and 1.0, inclusive).\n");
+            } else if(command.equalsIgnoreCase("h p") || command.equalsIgnoreCase("help p") || command.equalsIgnoreCase("help p") || command.equalsIgnoreCase("help print")) {
+                System.out.println("This command will print the maze that has been generated by the program in its default/original state.");
+                System.out.println("The numbers indicates the type of space. Type 'r' for a reference on the values.");
+            } else if(command.equalsIgnoreCase("h pr") || command.equalsIgnoreCase("help pr")) {
+                System.out.println("This command will print the maze as something more graphical than the regular print, using special ASCII characters to represent the spaces.");
+                System.out.println("ASCII characters may not be represented properly in the terminal or IDE depending on the font. Consider outputting the console outputs to a text file to see.");
+            } else {    // Invalid commands
+                System.out.println("Invalid command! Type 'h' or 'help' for a list of valid commands.\nType 'q' or 'quit' to quit the program.\n");
+            }
+        }
+
+        sc.close();
 
         //At the start, a randomly selected open spot in the maze is set to "on fire"
         /*
@@ -817,6 +953,7 @@ public class Main {
         }
         */
         /* Strat Two Plot */
+        /*
         for(double q = 0.1; q <= 1.0; q += 0.1) {
             double avgSuccess = 0;
             System.out.println("--For q = " + q);
@@ -830,6 +967,6 @@ public class Main {
             avgSuccess = avgSuccess / 100.0;
             System.out.println("Average Success: " + avgSuccess + "\n");
         }
-
+        */
     }
 }
