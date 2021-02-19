@@ -202,6 +202,98 @@ public class Main {
         return false;
     }
 
+    public static PathInfo BFSFromPosition(Index agent) {
+        int[][] mazeBFS = copyMaze();
+        Queue<Index> queue = new LinkedList<Index>();
+        mazeBFS[agent.getRow()][agent.getCol()] = 1;
+        queue.add(new Index(agent.getRow(), agent.getCol(), 0, null));
+
+        Index[][] indexMaze = new Index[mazeBFS.length][mazeBFS.length];
+        indexMaze[agent.getRow()][agent.getCol()] = new Index(agent.getRow(), agent.getCol(), 0, null);
+
+        while(!queue.isEmpty()) {
+            Index item = queue.remove();
+
+            //if goal...
+            if(item.getRow() == mazeBFS.length - 1 && item.getCol() == mazeBFS.length - 1) {
+                ArrayList<Index> shortestPath = new ArrayList<Index>();
+                Index current = indexMaze[mazeBFS.length - 1][mazeBFS.length - 1];
+
+                //Determine the exact route of the shortest path.
+                while(current.getRow() != agent.getRow() || current.getCol() != agent.getCol()) {
+                    shortestPath.add(current);
+                    current = current.getParent();
+                }
+                shortestPath.add(indexMaze[agent.getRow()][agent.getCol()]);
+                Collections.reverse(shortestPath);
+
+                //Determine the number of nodes visited by BFS.
+                int numNodesExplored = 0;
+                for(int i = 0; i < mazeBFS.length; i ++) {
+                    for(int j = 0; j < mazeBFS.length; j ++) {
+                        if(mazeBFS[i][j] == 1) {
+                            numNodesExplored ++;
+                        }
+                    }
+                }
+                // System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for BFS
+
+                return new PathInfo(shortestPath, numNodesExplored);
+            }
+
+            // For all neighbors adjacent to item ... (item can have 0 - 4 viable neighbors)
+            // Check below item (row + 1, col).
+            if(item.getRow() + 1 < mazeBFS.length) {    // Bound check.
+                // If neighbor not marked explored ... (and not an obstacle)
+                if(mazeBFS[item.getRow() + 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() + 1][item.getCol()] > 1)) {
+                    mazeBFS[item.getRow() + 1][item.getCol()] = 1;          // Mark explored ...
+                    indexMaze[item.getRow() + 1][item.getCol()] = new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item);
+                    queue.add(new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item)); // Add neighbor to queue.
+                }
+            }
+
+            // Check right of item (row, col + 1).
+            if(item.getCol() + 1 < mazeBFS.length) {    // Bound check.
+                // If neighbor not marked explored ... (and not an obstacle)
+                if(mazeBFS[item.getRow()][item.getCol() + 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() + 1] > 1)) {
+                    mazeBFS[item.getRow()][item.getCol() + 1] = 1;          // Mark explored ...
+                    indexMaze[item.getRow()][item.getCol() + 1] = new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item);
+                    queue.add(new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item)); // Add neighbor to queue.
+                }
+            }
+
+            // Check left of item (row, col - 1).
+            if(item.getCol() - 1 >= 0) {    // Bound check.
+                // If neighbor not marked explored ... (and not an obstacle)
+                if(mazeBFS[item.getRow()][item.getCol() - 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() - 1] > 1)) {
+                    mazeBFS[item.getRow()][item.getCol() - 1] = 1;          // Mark explored ...
+                    indexMaze[item.getRow()][item.getCol() - 1] = new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item);
+                    queue.add(new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item)); // Add neighbor to queue.
+                }
+            }
+
+            // Check above item (row - 1, col).
+            if(item.getRow() - 1 >= 0) {    // Bound check.
+                // If neighbor not marked explored ... (and not an obstacle)
+                if(mazeBFS[item.getRow() - 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() - 1][item.getCol()] > 1)) {
+                    mazeBFS[item.getRow() - 1][item.getCol()] = 1;          // Mark explored ...
+                    indexMaze[item.getRow() - 1][item.getCol()] = new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item);
+                    queue.add(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item)); // Add neighbor to queue.
+                }
+            }
+        }
+
+        int numNodesExplored = 0;
+        for(int i = 0; i < mazeBFS.length; i ++) {
+            for(int j = 0; j < mazeBFS.length; j ++) {
+                if(mazeBFS[i][j] == 1) {
+                    numNodesExplored ++;
+                }
+            }
+        }
+        return new PathInfo(null, numNodesExplored);
+    }
+
     /**
      * BFS search for goal.
      * @return True if goal is reachable; false otherwise.
@@ -572,6 +664,49 @@ public class Main {
         return true;
     }
 
+    /**
+     * Method that implements Strategy Two of stepping through the maze.
+     * @param q - The flammability.
+     * @return true if the agent reaches the end, false otherwise.
+     */
+    public static boolean stratTwo(double q) {
+        // At every time step, re-compute the shortest path from the agent’s current position to the goal position, based on  the  current  state  of  the  maze  and  the  fire.
+        // Follow  this  new  path  one  time  step,  then  re-compute.
+        // This strategy constantly re-adjusts its plan based on the evolution of the fire.
+        // If the agent gets trapped with no path to the goal, it dies.
+
+        //Generate a solvable maze.
+        PathInfo pathInfo;
+        do {
+            generateMaze(100, 0.3, true);
+            pathInfo = BFSMaze();
+        } while(pathInfo.getShortestPath() == null);
+
+        Index agent = new Index(0, 0);
+        while(agent.getRow() != maze.length - 1 || agent.getCol() != maze.length - 1) {
+            Index nextSpot = pathInfo.getShortestPath().get(1);
+            agent.setRow(nextSpot.getRow());
+            agent.setCol(nextSpot.getCol());
+
+            if(maze[agent.getRow()][agent.getCol()] == 3) {
+                //System.out.println("Agent has stepped in fire."); //debug
+                return false;
+            }
+
+            //Determine after the fire if maze is still solvable
+            advanceFireOneStep(maze, q);
+            PathInfo newPath = BFSFromPosition(agent);
+            if(newPath.getShortestPath() == null) {
+                //System.out.println("Maze no longer solvable."); //debug
+                return false;
+            }
+            pathInfo = newPath;
+        }
+
+        //System.out.println("Agent has exited the maze."); //debug
+        return true;
+    }
+
     public static void main(String[] args) {
         long startTime;
         long endTime;
@@ -665,12 +800,28 @@ public class Main {
         */
 
         /* Strat One Plot */
+        /*
         //Plot, for Strategy 1, 2, and 3, a graph of 'average strategy success rate’ vs ‘flammability q’ at p= 0.3.
         for(double q = 0.1; q <= 1.0; q += 0.1) {
             double avgSuccess = 0;
             System.out.println("--For q = " + q);
             for(int j = 0; j < 100; j ++) {
                 boolean attempt = stratOne(q); //Implement strat one and see whether the agent reached or not
+                System.out.println(attempt);
+                if(attempt) {
+                    avgSuccess += 1.0;
+                }
+            }
+            avgSuccess = avgSuccess / 100.0;
+            System.out.println("Average Success: " + avgSuccess + "\n");
+        }
+        */
+        /* Strat Two Plot */
+        for(double q = 0.1; q <= 1.0; q += 0.1) {
+            double avgSuccess = 0;
+            System.out.println("--For q = " + q);
+            for(int j = 0; j < 100; j ++) {
+                boolean attempt = stratTwo(q);
                 System.out.println(attempt);
                 if(attempt) {
                     avgSuccess += 1.0;
