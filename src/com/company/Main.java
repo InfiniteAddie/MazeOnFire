@@ -406,8 +406,14 @@ public class Main {
      * @param item - Current item.
      * @param queue - The queue to add neighbors to.
      */
-    private static void AStarCheckNeighbors(int[][] maze, Index[][] indexMaze, Index item, PriorityQueue<Index> queue) {
-        Index start = new Index(0, 0, 0, null);
+    private static void AStarCheckNeighbors(int[][] maze, Index[][] indexMaze, Index item, PriorityQueue<Index> queue, Index agent) {
+        Index start;
+        if(agent != null) {
+            start = new Index(agent.getRow(), agent.getCol(), 0, null);
+        }
+        else {
+            start = new Index(0, 0, 0, null);
+        }
         Index goal = new Index(maze.length - 1, maze.length - 1, 0, null);
 
         // Check neighbor below item. (row + 1, col)
@@ -415,7 +421,7 @@ public class Main {
             maze[item.getRow() + 1][item.getCol()] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow() + 1, item.getCol(), 0, item);
             neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
-            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal)); // f(n) = g(n) + h(n)
+            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal) + countFireNeighbors(maze, neighbor.getRow(), neighbor.getCol())); // f(n) = g(n) + h(n)
             queue.add(neighbor);
 
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
@@ -426,7 +432,7 @@ public class Main {
             maze[item.getRow()][item.getCol() + 1] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow(), item.getCol() + 1, 0, item);
             neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
-            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal)); // f(n) = g(n) + h(n)
+            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal) + countFireNeighbors(maze, neighbor.getRow(), neighbor.getCol())); // f(n) = g(n) + h(n)
             queue.add(neighbor);
 
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
@@ -437,7 +443,7 @@ public class Main {
             maze[item.getRow()][item.getCol() - 1] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow(), item.getCol() - 1, 0, item);
             neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
-            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal)); // f(n) = g(n) + h(n)
+            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal) + countFireNeighbors(maze, neighbor.getRow(), neighbor.getCol())); // f(n) = g(n) + h(n)
             queue.add(neighbor);
 
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
@@ -448,11 +454,74 @@ public class Main {
             maze[item.getRow() - 1][item.getCol()] = 1; // Mark visited.
             Index neighbor = new Index(item.getRow() - 1, item.getCol(), 0, item);
             neighbor.setDist(Index.distTwoPoints(start, neighbor)); // Set Euclidean distance.
-            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal)); // f(n) = g(n) + h(n)
+            neighbor.setScore(Index.distTwoPoints(item, neighbor) + Index.distTwoPoints(neighbor, goal) + countFireNeighbors(maze, neighbor.getRow(), neighbor.getCol())); // f(n) = g(n) + h(n)
             queue.add(neighbor);
 
             indexMaze[neighbor.getRow()][neighbor.getCol()] = neighbor;
         }
+    }
+
+    /**
+     * Method that runs the A* search algorithm from a specified position.
+     * @param agent - The agent's position in the maze.
+     * @return a container with the shortestPath to follow and the number of nodes explored by A*.
+     */
+    public static PathInfo AStarFromPosition(Index agent) {
+        mazeSearched = copyMaze();
+        Index[][] indexMaze = new Index[mazeSearched.length][mazeSearched[0].length];
+        PriorityQueue<Index> minHeap = new PriorityQueue<Index>();
+        mazeSearched[agent.getRow()][agent.getCol()] = 1; // Mark start visited.
+        indexMaze[0][0] = new Index(agent.getRow(), agent.getCol(), 0, null);
+        minHeap.add(new Index(agent.getRow(), agent.getCol(), 0, null));  // Add start to queue.
+
+        // While heap is not empty ...
+        while(!(minHeap.isEmpty())) {
+            Index item = minHeap.remove();  // Remove item from queue.
+
+            // If goal ...
+            if(item.getRow() == mazeSearched.length - 1 && item.getCol() == mazeSearched.length - 1) {
+                //printMazeASCII(mazeSearched); // DEBUG
+                ArrayList<Index> shortestPath = new ArrayList<Index>();
+                Index current = indexMaze[mazeSearched.length - 1][mazeSearched.length - 1];
+
+                //Determine the exact route of the shortest path.
+                while(current.getRow() != agent.getRow() || current.getCol() != agent.getCol()) {
+                    shortestPath.add(current);
+                    current = current.getParent();
+                }
+                shortestPath.add(indexMaze[agent.getRow()][agent.getCol()]);
+                Collections.reverse(shortestPath);
+
+                //Determine the number of nodes visited by A*.
+                int numNodesExplored = 0;
+                for(int i = 0; i < mazeSearched.length; i ++) {
+                    for(int j = 0; j < mazeSearched.length; j ++) {
+                        if(mazeSearched[i][j] == 1) {
+                            numNodesExplored ++;
+                        }
+                    }
+                }
+                // System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for A*
+
+                return new PathInfo(shortestPath, numNodesExplored);
+            }
+
+            // Check neighbors of item.
+            AStarCheckNeighbors(mazeSearched, indexMaze, item, minHeap, agent);
+        }
+
+        //printMaze(mazeSearched); // DEBUG
+        int numNodesExplored = 0;
+        for(int i = 0; i < mazeSearched.length; i ++) {
+            for(int j = 0; j < mazeSearched.length; j ++) {
+                if(mazeSearched[i][j] == 1) {
+                    numNodesExplored ++;
+                }
+            }
+        }
+        //System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for A*
+
+        return new PathInfo(null, numNodesExplored);
     }
 
     /**
@@ -503,7 +572,7 @@ public class Main {
             }
 
             // Check neighbors of item.
-            AStarCheckNeighbors(mazeSearched, indexMaze, item, minHeap);
+            AStarCheckNeighbors(mazeSearched, indexMaze, item, minHeap, null);
         }
 
         //printMaze(mazeSearched); // DEBUG
@@ -527,7 +596,7 @@ public class Main {
      * @param col - The column index of the current maze.
      * @return Number of neighbors that are on fire.
      */
-    public static int countFireNeighbors(int row, int col) {
+    public static int countFireNeighbors(int[][] maze, int row, int col) {
         int k = 0; //num of neighbors on fire
 
         if(row - 1 >= 0) { //check if left is in bounds
@@ -569,7 +638,7 @@ public class Main {
                 if(maze[row][col] != 3 && maze[row][col] != 2) {
                     // Count number of neighbors of (x, y) that are on fire.
                     // The higher the value, the likelier (x, y) will catch fire.
-                    int k = countFireNeighbors(row, col);
+                    int k = countFireNeighbors(maze, row, col);
                     double prob = 1 - Math.pow((1 - q), k);
                     
                     // Mark space on fire.
@@ -673,29 +742,29 @@ public class Main {
         //At the start of the maze, wherever the fire is, solve for the shortest path from upper left to lower right,
         // and follow it until the agent exits the maze or burns
 
-        //Generate a solvable maze.
-        PathInfo pathInfo;
-        do {
-            generateMaze(100, 0.3, true);
-            pathInfo = BFSMaze();
-        } while(pathInfo.getShortestPath() == null);
-        //printMaze(maze); //debug
+        //Get pathInfo from BFS.
+        PathInfo pathInfo = BFSMaze();
+        int[][] mazeSim = copyMaze();
 
         //have the agent start at the starting point, and have them step through.
         Index agent = new Index(0, 0);
         int i = 1;
-        while(agent.getRow() != maze.length - 1 || agent.getCol() != maze.length - 1) {
+        while(agent.getRow() != mazeSim.length - 1 || agent.getCol() != mazeSim.length - 1) {
             Index nextSpot = pathInfo.getShortestPath().get(i); //object that obtains the next spot to move to in the shortestPath
             agent.setRow(nextSpot.getRow()); //agent steps to nextSpot's row
             agent.setCol(nextSpot.getCol()); //agent steps to nextSpot's col
             //System.out.println("Agent has stepped to: " + agent); //debug
 
-            if(maze[agent.getRow()][agent.getCol()] == 3) { //check if the spot the agent just moved to is on fire
+            if(mazeSim[agent.getRow()][agent.getCol()] == 3) { //check if the spot the agent just moved to is on fire
                 //System.out.println("Agent has stepped in fire."); //debug
                 //printMaze(maze); //debug
                 return false; //the task is over once the agent steps into fire
             }
-            advanceFireOneStep(maze, q); //agent has stepped once, now the fire has to advance once
+            advanceFireOneStep(mazeSim, q); //agent has stepped once, now the fire has to advance once
+            if(mazeSim[agent.getRow()][agent.getCol()] == 3) { //check if the fire has spread onto the agent
+                //System.out.println("Fire has spread to agent."); //debug
+                return false;
+            }
             i ++;
         }
 
@@ -715,26 +784,27 @@ public class Main {
         // This strategy constantly re-adjusts its plan based on the evolution of the fire.
         // If the agent gets trapped with no path to the goal, it dies.
 
-        //Generate a solvable maze.
-        PathInfo pathInfo;
-        do {
-            generateMaze(100, 0.3, true);
-            pathInfo = BFSMaze();
-        } while(pathInfo.getShortestPath() == null);
+        //Get pathInfo from BFS.
+        PathInfo pathInfo = BFSMaze();
+        int[][] mazeSim = copyMaze();
 
         Index agent = new Index(0, 0);
-        while(agent.getRow() != maze.length - 1 || agent.getCol() != maze.length - 1) {
+        while(agent.getRow() != mazeSim.length - 1 || agent.getCol() != mazeSim.length - 1) {
             Index nextSpot = pathInfo.getShortestPath().get(1);
             agent.setRow(nextSpot.getRow());
             agent.setCol(nextSpot.getCol());
 
-            if(maze[agent.getRow()][agent.getCol()] == 3) {
+            if(mazeSim[agent.getRow()][agent.getCol()] == 3) {
                 //System.out.println("Agent has stepped in fire."); //debug
                 return false;
             }
 
             //Determine after the fire if maze is still solvable
-            advanceFireOneStep(maze, q);
+            advanceFireOneStep(mazeSim, q);
+            if(mazeSim[agent.getRow()][agent.getCol()] == 3) {
+                //System.out.println("Fire has spread to agent."); //debug
+                return false;
+            }
             PathInfo newPath = BFSFromPosition(agent);
             if(newPath.getShortestPath() == null) {
                 //System.out.println("Maze no longer solvable."); //debug
@@ -753,8 +823,72 @@ public class Main {
      * @return true if the agent reaches the end, false otherwise.
      */
     public static boolean stratThree(double q) {
-        // TODO
-        return false;
+        //Get pathInfo from BFS.
+        PathInfo pathInfo = BFSMaze();
+        int[][] mazeSim = copyMaze();
+
+        Index agent = new Index(0, 0);
+        int count = 0;
+        while(agent.getRow() != mazeSim.length - 1 || agent.getCol() != mazeSim.length - 1) {
+            if(count == 500) {
+                System.out.println("Timed out.");
+                return false;
+            }
+            Index nextSpot = pathInfo.getShortestPath().get(1);
+            //check if this next spot has fire neighbors
+            //recompute shortestPath, ignoring nextSpot
+            int chanceOfFire = countFireNeighbors(mazeSim, nextSpot.getRow(), nextSpot.getCol());
+            PathInfo newPath;
+            if(chanceOfFire > 0) { //if the current next spot has fire next to it, it could potentially catch fire
+                newPath = AStarFromPosition(agent);
+
+                if(newPath.getShortestPath() != null) { //check if proposed path is valid
+                    Index altNextSpot = newPath.getShortestPath().get(1);
+                    int altChanceOfFire = countFireNeighbors(mazeSim, altNextSpot.getRow(), altNextSpot.getCol());
+                    if(altChanceOfFire < chanceOfFire) { //check to make sure the nextSpot of this new path isn't a greater risk (prevents infinite loop)
+                        pathInfo = newPath; //have the agent set to follow this alternate path
+                        continue; //go back to the beginning of the loop
+                    }
+                }
+            }
+
+            agent.setRow(nextSpot.getRow());
+            agent.setCol(nextSpot.getCol());
+
+            if(mazeSim[agent.getRow()][agent.getCol()] == 3) {
+                //System.out.println("Agent has stepped in fire."); //debug
+                return false;
+            }
+
+            //Determine after the fire if maze is still solvable
+            advanceFireOneStep(mazeSim, q);
+            if(mazeSim[agent.getRow()][agent.getCol()] == 3) {
+                //System.out.println("Fire has spread to agent."); //debug
+                return false;
+            }
+            newPath = BFSFromPosition(agent);
+            if(newPath.getShortestPath() == null) {
+                //System.out.println("Maze no longer solvable."); //debug
+                return false;
+            }
+            pathInfo = newPath;
+            count ++;
+        }
+
+        //System.out.println("Agent has exited the maze."); //debug
+        return true;
+    }
+
+    /**
+     * Method to generate a solvable maze.
+     * @return the solvable maze.
+     */
+    public static void generateSolvableMaze() {
+        PathInfo pathInfo;
+        do {
+            generateMaze(100, 0.3, true);
+            pathInfo = BFSMaze();
+        } while(pathInfo.getShortestPath() == null);
     }
 
     public static void main(String[] args) {
@@ -870,7 +1004,7 @@ public class Main {
                 }
 
                 System.out.println();
-            } else if(command.equalsIgnoreCase("strat1") || command.equalsIgnoreCase("strat2") || command.equalsIgnoreCase("strat2")) { // Strategies
+            } else if(command.equalsIgnoreCase("strat1") || command.equalsIgnoreCase("strat2") || command.equalsIgnoreCase("strat3")) { // Strategies
                 try {
                     System.out.print("Enter flammability rate between 0.0 and 1.0 (double): ");
                     double q = sc.nextDouble();
@@ -971,8 +1105,9 @@ public class Main {
         */
 
         /* Strat One Plot */
-        /*
+
         //Plot, for Strategy 1, 2, and 3, a graph of 'average strategy success rate’ vs ‘flammability q’ at p= 0.3.
+        /*
         for(double q = 0.1; q <= 1.0; q += 0.1) {
             double avgSuccess = 0;
             System.out.println("--For q = " + q);
@@ -985,8 +1120,8 @@ public class Main {
             }
             avgSuccess = avgSuccess / 100.0;
             System.out.println("Average Success: " + avgSuccess + "\n");
-        }
-        */
+        }*/
+
         /* Strat Two Plot */
         /*
         for(double q = 0.1; q <= 1.0; q += 0.1) {
@@ -1003,5 +1138,40 @@ public class Main {
             System.out.println("Average Success: " + avgSuccess + "\n");
         }
         */
+
+        /* Strat Plot */
+
+        for(double q = 0.0; q <= 0.6; q += 0.05) {
+            double avgSuccessStratOne = 0;
+            double avgSuccessStratTwo = 0;
+            double avgSuccessStratThree = 0;
+            System.out.println("--For q = " + q);
+            for(int j = 0; j < 100; j ++) {
+                generateSolvableMaze();
+                boolean attemptOne = stratOne(q);
+                //System.out.println("done");
+                boolean attemptTwo = stratTwo(q);
+                //System.out.println("done");
+                boolean attemptThree = stratThree(q);
+                //System.out.println("done");
+                System.out.println("#" + (j + 1) + ": " + attemptOne + ", " + attemptTwo + ", " + attemptThree);
+                if(attemptOne) {
+                    avgSuccessStratOne += 1.0;
+                }
+                if(attemptTwo) {
+                    avgSuccessStratTwo += 1.0;
+                }
+                if(attemptThree) {
+                    avgSuccessStratThree += 1.0;
+                }
+            }
+            avgSuccessStratOne = avgSuccessStratOne / 100.0;
+            avgSuccessStratTwo = avgSuccessStratTwo / 100.0;
+            avgSuccessStratThree = avgSuccessStratThree / 100.0;
+            System.out.println("Average Success (1): " + avgSuccessStratOne);
+            System.out.println("Average Success (2): " + avgSuccessStratTwo);
+            System.out.println("Average Success (3): " + avgSuccessStratThree + "\n");
+        }
+
     }
 }

@@ -1,1030 +1,2045 @@
+Commands
+q | quit: quit the program
+g: generate new maze
+p | print: print maze
+r: a reference for values printed by 'p' or 'print'
+pr: print readable version of maze (creates output.txt)
+dfs: run DFS on maze
+bfs: run BFS on maze
+a: run A* on maze
+p[dfs | bfs | a]: runs respective search algorithm on maze and prints result
+pr[dfs | bfs | a]: runs respective search algorithm on maze and prints readable result (creates output.txt)
+strat[1 | 2 | 3]: run strategy 1, 2, or 3 on the maze
+h | help: show this list again
+h [g | p | print | pr] | help [g | p | print | pr]: get more info on command
+
 --For q = 0.1
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Fire has spread to agent.
 false
-true
+Agent has stepped in fire.
 false
-true
-true
-true
-true
-true
+Fire has spread to agent.
 false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Agent has reached the end.
+true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has stepped in fire.
 false
-true
+Agent has stepped in fire.
 false
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
+true
+Fire has spread to agent.
 false
+Agent has reached the end.
 true
-true
+Agent has stepped in fire.
 false
+Agent has reached the end.
 true
-true
+Agent has stepped in fire.
 false
-true
-true
-true
+Agent has stepped in fire.
 false
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
 true
-true
+Fire has spread to agent.
 false
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has stepped in fire.
 false
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has stepped in fire.
 false
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has stepped in fire.
 false
-true
-true
-true
-true
-true
+Agent has stepped in fire.
 false
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has stepped in fire.
 false
+Agent has reached the end.
 true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has stepped in fire.
 false
+Agent has reached the end.
 true
+Agent has reached the end.
 true
-true
+Agent has stepped in fire.
 false
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has stepped in fire.
 false
+Agent has reached the end.
 true
-true
-true
+Fire has spread to agent.
 false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
-true
-true
-true
-true
-true
+Fire has spread to agent.
 false
+Agent has reached the end.
 true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has reached the end.
+true
+Agent has stepped in fire.
 false
-true
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
-true
+Agent has stepped in fire.
 false
-true
+Agent has stepped in fire.
 false
-true
-false
-false
-true
-true
-true
-true
-false
-false
-true
-true
-false
-true
-false
-true
-Average Success: 0.64
+Average Success: 0.7
 
 --For q = 0.2
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Agent has reached the end.
 true
-false
-false
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
+false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
-false
-false
+Agent has reached the end.
 true
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Fire has spread to agent.
+false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has reached the end.
 true
+Agent has reached the end.
 true
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has reached the end.
 true
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has reached the end.
+true
+Fire has spread to agent.
 false
+Agent has reached the end.
 true
-true
+Agent has stepped in fire.
 false
+Agent has reached the end.
+true
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has reached the end.
 true
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
-Average Success: 0.35
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
+true
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Average Success: 0.37
 
 --For q = 0.30000000000000004
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
-false
-false
-false
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
-true
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
-true
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
-Average Success: 0.12
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Average Success: 0.1
 
 --For q = 0.4
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-Average Success: 0.02
-
---For q = 0.5
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
-true
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-Average Success: 0.02
-
---For q = 0.6
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-true
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-true
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-true
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
+Fire has spread to agent.
 false
 Average Success: 0.03
 
---For q = 0.7
+--For q = 0.5
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
+Agent has stepped in fire.
 false
 Average Success: 0.01
 
+--For q = 0.6
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has reached the end.
+true
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
+true
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
+true
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
+true
+Average Success: 0.04
+
+--For q = 0.7
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
+true
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has reached the end.
+true
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has reached the end.
+true
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
+true
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Average Success: 0.04
+
 --For q = 0.7999999999999999
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
-false
-false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has reached the end.
+true
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-Average Success: 0.02
+Average Success: 0.03
 
 --For q = 0.8999999999999999
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
 false
 Average Success: 0.02
 
 --For q = 0.9999999999999999
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
+Agent has reached the end.
 true
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Agent has stepped in fire.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has reached the end.
 true
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
+Fire has spread to agent.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Agent has stepped in fire.
 false
+Fire has spread to agent.
 false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
-false
+Fire has spread to agent.
 false
 Average Success: 0.03
 

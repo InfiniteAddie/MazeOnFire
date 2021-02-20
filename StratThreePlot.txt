@@ -1,0 +1,2045 @@
+Commands
+q | quit: quit the program
+g: generate new maze
+p | print: print maze
+r: a reference for values printed by 'p' or 'print'
+pr: print readable version of maze (creates output.txt)
+dfs: run DFS on maze
+bfs: run BFS on maze
+a: run A* on maze
+p[dfs | bfs | a]: runs respective search algorithm on maze and prints result
+pr[dfs | bfs | a]: runs respective search algorithm on maze and prints readable result (creates output.txt)
+strat[1 | 2 | 3]: run strategy 1, 2, or 3 on the maze
+h | help: show this list again
+h [g | p | print | pr] | help [g | p | print | pr]: get more info on command
+
+--For q = 0.1
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Average Success: 0.87
+
+--For q = 0.2
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Average Success: 0.48
+
+--For q = 0.30000000000000004
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Average Success: 0.12
+
+--For q = 0.4
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Average Success: 0.03
+
+--For q = 0.5
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Average Success: 0.02
+
+--For q = 0.6
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Average Success: 0.01
+
+--For q = 0.7
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Fire has spread to agent.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Average Success: 0.01
+
+--For q = 0.7999999999999999
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Agent has exited the maze.
+true
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Average Success: 0.01
+
+--For q = 0.8999999999999999
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Average Success: 0.0
+
+--For q = 0.9999999999999999
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Maze no longer solvable.
+false
+Average Success: 0.0
+
