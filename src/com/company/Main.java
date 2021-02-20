@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.*;
+import java.io.*;
 
 /**
  * Let...
@@ -14,6 +15,7 @@ import java.util.*;
  */
 public class Main {
     private static int[][] maze;
+    private static int[][] mazeSearched;
 
     /**
      * Generate dim x dim maze given (dim)ension and (den)sity.
@@ -154,56 +156,50 @@ public class Main {
      * DFS search for goal.
      * @return True if goal is reachable; false otherwise.
      */
-    public static boolean DFSMaze(boolean print) {
-        int[][] mazeDFS = copyMaze();   // Copy maze.
+    public static boolean DFSMaze() {
+        mazeSearched = copyMaze();   // Copy maze.
         Stack<Index> stack = new Stack<Index>(); // Initialize fringe in the form of a stack.
         stack.push(new Index(0, 0, 0, null)); // Start by pushing the source index.
 
         while(!stack.isEmpty()) { // While stack is not empty ...
             Index item = stack.pop();   // Current item.
-            mazeDFS[item.getRow()][item.getCol()] = 1; // Mark visited.
+            mazeSearched[item.getRow()][item.getCol()] = 1; // Mark visited.
 
             // If goal ...
             if(item.getRow() == maze.length - 1 && item.getCol() == maze.length - 1) {
-                if(print) {
-                    printMaze(mazeDFS);
-                }
                 return true;
             }
 
             // Check neighbors of item.
             // Check above item (row - 1, col).
             if(item.getRow() - 1 >= 0) {   // Bound check.
-                if(mazeDFS[item.getRow() - 1][item.getCol()] == 0) {    // Check space type.
+                if(mazeSearched[item.getRow() - 1][item.getCol()] == 0) {    // Check space type.
                     stack.push(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item));
                 }
             }
 
             // Check left of item (row, col - 1).
             if(item.getCol() - 1 >= 0) {   // Bound check.
-                if(mazeDFS[item.getRow()][item.getCol() - 1] == 0) {    // Check space type.
+                if(mazeSearched[item.getRow()][item.getCol() - 1] == 0) {    // Check space type.
                     stack.push(new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item));
                 }
             }
 
             // Check right of item (row, col + 1).
             if(item.getCol() + 1 < maze.length) {   // Bound check.
-                if(mazeDFS[item.getRow()][item.getCol() + 1] == 0) {    // Check space type.
+                if(mazeSearched[item.getRow()][item.getCol() + 1] == 0) {    // Check space type.
                     stack.push(new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item));
                 }
             }
 
             // Check below item (row + 1, col).
             if(item.getRow() + 1 < maze.length) {   // Bound check.
-                if(mazeDFS[item.getRow() + 1][item.getCol()] == 0) {    // Check space type.
+                if(mazeSearched[item.getRow() + 1][item.getCol()] == 0) {    // Check space type.
                     stack.push(new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item));
                 }
             }
         }
 
-        if(print) {
-            printMaze(mazeDFS);
-        }
         return false;
     }
 
@@ -213,21 +209,21 @@ public class Main {
      * @return Path information.
      */
     public static PathInfo BFSFromPosition(Index agent) {
-        int[][] mazeBFS = copyMaze();
+        mazeSearched = copyMaze();
         Queue<Index> queue = new LinkedList<Index>();
-        mazeBFS[agent.getRow()][agent.getCol()] = 1;
+        mazeSearched[agent.getRow()][agent.getCol()] = 1;
         queue.add(new Index(agent.getRow(), agent.getCol(), 0, null));
 
-        Index[][] indexMaze = new Index[mazeBFS.length][mazeBFS.length];
+        Index[][] indexMaze = new Index[mazeSearched.length][mazeSearched.length];
         indexMaze[agent.getRow()][agent.getCol()] = new Index(agent.getRow(), agent.getCol(), 0, null);
 
         while(!queue.isEmpty()) {
             Index item = queue.remove();
 
             //if goal...
-            if(item.getRow() == mazeBFS.length - 1 && item.getCol() == mazeBFS.length - 1) {
+            if(item.getRow() == mazeSearched.length - 1 && item.getCol() == mazeSearched.length - 1) {
                 ArrayList<Index> shortestPath = new ArrayList<Index>();
-                Index current = indexMaze[mazeBFS.length - 1][mazeBFS.length - 1];
+                Index current = indexMaze[mazeSearched.length - 1][mazeSearched.length - 1];
 
                 //Determine the exact route of the shortest path.
                 while(current.getRow() != agent.getRow() || current.getCol() != agent.getCol()) {
@@ -239,9 +235,9 @@ public class Main {
 
                 //Determine the number of nodes visited by BFS.
                 int numNodesExplored = 0;
-                for(int i = 0; i < mazeBFS.length; i ++) {
-                    for(int j = 0; j < mazeBFS.length; j ++) {
-                        if(mazeBFS[i][j] == 1) {
+                for(int i = 0; i < mazeSearched.length; i ++) {
+                    for(int j = 0; j < mazeSearched.length; j ++) {
+                        if(mazeSearched[i][j] == 1) {
                             numNodesExplored ++;
                         }
                     }
@@ -253,20 +249,20 @@ public class Main {
 
             // For all neighbors adjacent to item ... (item can have 0 - 4 viable neighbors)
             // Check below item (row + 1, col).
-            if(item.getRow() + 1 < mazeBFS.length) {    // Bound check.
+            if(item.getRow() + 1 < mazeSearched.length) {    // Bound check.
                 // If neighbor not marked explored ... (and not an obstacle)
-                if(mazeBFS[item.getRow() + 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() + 1][item.getCol()] > 1)) {
-                    mazeBFS[item.getRow() + 1][item.getCol()] = 1;          // Mark explored ...
+                if(mazeSearched[item.getRow() + 1][item.getCol()] < 1 && !(mazeSearched[item.getRow() + 1][item.getCol()] > 1)) {
+                    mazeSearched[item.getRow() + 1][item.getCol()] = 1;          // Mark explored ...
                     indexMaze[item.getRow() + 1][item.getCol()] = new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item);
                     queue.add(new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
             }
 
             // Check right of item (row, col + 1).
-            if(item.getCol() + 1 < mazeBFS.length) {    // Bound check.
+            if(item.getCol() + 1 < mazeSearched.length) {    // Bound check.
                 // If neighbor not marked explored ... (and not an obstacle)
-                if(mazeBFS[item.getRow()][item.getCol() + 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() + 1] > 1)) {
-                    mazeBFS[item.getRow()][item.getCol() + 1] = 1;          // Mark explored ...
+                if(mazeSearched[item.getRow()][item.getCol() + 1] < 1 && !(mazeSearched[item.getRow()][item.getCol() + 1] > 1)) {
+                    mazeSearched[item.getRow()][item.getCol() + 1] = 1;          // Mark explored ...
                     indexMaze[item.getRow()][item.getCol() + 1] = new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item);
                     queue.add(new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
@@ -275,8 +271,8 @@ public class Main {
             // Check left of item (row, col - 1).
             if(item.getCol() - 1 >= 0) {    // Bound check.
                 // If neighbor not marked explored ... (and not an obstacle)
-                if(mazeBFS[item.getRow()][item.getCol() - 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() - 1] > 1)) {
-                    mazeBFS[item.getRow()][item.getCol() - 1] = 1;          // Mark explored ...
+                if(mazeSearched[item.getRow()][item.getCol() - 1] < 1 && !(mazeSearched[item.getRow()][item.getCol() - 1] > 1)) {
+                    mazeSearched[item.getRow()][item.getCol() - 1] = 1;          // Mark explored ...
                     indexMaze[item.getRow()][item.getCol() - 1] = new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item);
                     queue.add(new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
@@ -285,8 +281,8 @@ public class Main {
             // Check above item (row - 1, col).
             if(item.getRow() - 1 >= 0) {    // Bound check.
                 // If neighbor not marked explored ... (and not an obstacle)
-                if(mazeBFS[item.getRow() - 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() - 1][item.getCol()] > 1)) {
-                    mazeBFS[item.getRow() - 1][item.getCol()] = 1;          // Mark explored ...
+                if(mazeSearched[item.getRow() - 1][item.getCol()] < 1 && !(mazeSearched[item.getRow() - 1][item.getCol()] > 1)) {
+                    mazeSearched[item.getRow() - 1][item.getCol()] = 1;          // Mark explored ...
                     indexMaze[item.getRow() - 1][item.getCol()] = new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item);
                     queue.add(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
@@ -294,9 +290,9 @@ public class Main {
         }
 
         int numNodesExplored = 0;
-        for(int i = 0; i < mazeBFS.length; i ++) {
-            for(int j = 0; j < mazeBFS.length; j ++) {
-                if(mazeBFS[i][j] == 1) {
+        for(int i = 0; i < mazeSearched.length; i ++) {
+            for(int j = 0; j < mazeSearched.length; j ++) {
+                if(mazeSearched[i][j] == 1) {
                     numNodesExplored ++;
                 }
             }
@@ -311,10 +307,10 @@ public class Main {
      * /TODO: (ideas): HashMap that stores information on a particular spot in the maze, and points to a parent (seems wack tbh)
      * /TODO: (ideas): for every part of the maze that has a 1, have that spot in a parallel matrix be equal to the distance from the source
      */
-    public static PathInfo BFSMaze(boolean print) {
-        int[][] mazeBFS = copyMaze();                   // Copy maze.
+    public static PathInfo BFSMaze() {
+        mazeSearched = copyMaze();                   // Copy maze.
         Queue<Index> queue = new LinkedList<Index>();   // Define queue.
-        mazeBFS[0][0] = 1;          // Mark (0, 0) explored.
+        mazeSearched[0][0] = 1;          // Mark (0, 0) explored.
         queue.add(new Index(0, 0, 0, null)); // Add index (0, 0) to queue.
 
         Index[][] indexMaze = new Index[maze.length][maze[0].length];
@@ -325,7 +321,7 @@ public class Main {
             Index item = queue.remove(); // Dequeue next item.
             //System.out.println(item); // DEBUG
             // If item is (maze.length - 1, maze.length - 1) ...
-            if(item.getRow() == mazeBFS.length - 1 && item.getCol() == mazeBFS.length - 1) {
+            if(item.getRow() == mazeSearched.length - 1 && item.getCol() == mazeSearched.length - 1) {
                 /*
                 for(int i = 0; i < indexMaze.length; i ++) {
                     for(int j = 0; j < indexMaze[i].length; j ++) {
@@ -333,42 +329,39 @@ public class Main {
                     }
                     System.out.println();
                 }*/
-                //printMazeASCII(mazeBFS); // DEBUG
+                //printMazeASCII(mazeSearched); // DEBUG
 
                 //Count the number of nodes explored by BFS
                 
                 int numNodesExplored = 0;
-                for(int i = 0; i < mazeBFS.length; i ++) {
-                    for(int j = 0; j < mazeBFS.length; j ++) {
-                        if(mazeBFS[i][j] == 1) {
+                for(int i = 0; i < mazeSearched.length; i ++) {
+                    for(int j = 0; j < mazeSearched.length; j ++) {
+                        if(mazeSearched[i][j] == 1) {
                             numNodesExplored ++;
                         }
                     }
                 }
                 //System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for BFS
 
-                if(print) {
-                    printMaze(mazeBFS);
-                }
                 return new PathInfo(findShortestPath(indexMaze), numNodesExplored);
             }
 
             // For all neighbors adjacent to item ... (item can have 0 - 4 viable neighbors)
             // Check below item (row + 1, col).
-            if(item.getRow() + 1 < mazeBFS.length) {    // Bound check.
+            if(item.getRow() + 1 < mazeSearched.length) {    // Bound check.
                 // If neighbor not marked explored ... (and not an obstacle)
-                if(mazeBFS[item.getRow() + 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() + 1][item.getCol()] > 1)) {
-                    mazeBFS[item.getRow() + 1][item.getCol()] = 1;          // Mark explored ...
+                if(mazeSearched[item.getRow() + 1][item.getCol()] < 1 && !(mazeSearched[item.getRow() + 1][item.getCol()] > 1)) {
+                    mazeSearched[item.getRow() + 1][item.getCol()] = 1;          // Mark explored ...
                     indexMaze[item.getRow() + 1][item.getCol()] = new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item);
                     queue.add(new Index(item.getRow() + 1, item.getCol(), item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
             }
             
             // Check right of item (row, col + 1).
-            if(item.getCol() + 1 < mazeBFS.length) {    // Bound check.
+            if(item.getCol() + 1 < mazeSearched.length) {    // Bound check.
                 // If neighbor not marked explored ... (and not an obstacle)
-                if(mazeBFS[item.getRow()][item.getCol() + 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() + 1] > 1)) {
-                    mazeBFS[item.getRow()][item.getCol() + 1] = 1;          // Mark explored ...
+                if(mazeSearched[item.getRow()][item.getCol() + 1] < 1 && !(mazeSearched[item.getRow()][item.getCol() + 1] > 1)) {
+                    mazeSearched[item.getRow()][item.getCol() + 1] = 1;          // Mark explored ...
                     indexMaze[item.getRow()][item.getCol() + 1] = new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item);
                     queue.add(new Index(item.getRow(), item.getCol() + 1, item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
@@ -377,8 +370,8 @@ public class Main {
             // Check left of item (row, col - 1).
             if(item.getCol() - 1 >= 0) {    // Bound check.
                 // If neighbor not marked explored ... (and not an obstacle)
-                if(mazeBFS[item.getRow()][item.getCol() - 1] < 1 && !(mazeBFS[item.getRow()][item.getCol() - 1] > 1)) {
-                    mazeBFS[item.getRow()][item.getCol() - 1] = 1;          // Mark explored ...
+                if(mazeSearched[item.getRow()][item.getCol() - 1] < 1 && !(mazeSearched[item.getRow()][item.getCol() - 1] > 1)) {
+                    mazeSearched[item.getRow()][item.getCol() - 1] = 1;          // Mark explored ...
                     indexMaze[item.getRow()][item.getCol() - 1] = new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item);
                     queue.add(new Index(item.getRow(), item.getCol() - 1, item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
@@ -387,27 +380,24 @@ public class Main {
             // Check above item (row - 1, col).
             if(item.getRow() - 1 >= 0) {    // Bound check.
                 // If neighbor not marked explored ... (and not an obstacle)
-                if(mazeBFS[item.getRow() - 1][item.getCol()] < 1 && !(mazeBFS[item.getRow() - 1][item.getCol()] > 1)) {
-                    mazeBFS[item.getRow() - 1][item.getCol()] = 1;          // Mark explored ...
+                if(mazeSearched[item.getRow() - 1][item.getCol()] < 1 && !(mazeSearched[item.getRow() - 1][item.getCol()] > 1)) {
+                    mazeSearched[item.getRow() - 1][item.getCol()] = 1;          // Mark explored ...
                     indexMaze[item.getRow() - 1][item.getCol()] = new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item);
                     queue.add(new Index(item.getRow() - 1, item.getCol(), item.getDistance() + 1, item)); // Add neighbor to queue.
                 }
             }
         }
-        //printMaze(mazeBFS); // DEBUG
+        //printMaze(mazeSearched); // DEBUG
         int numNodesExplored = 0;
-        for(int i = 0; i < mazeBFS.length; i ++) {
-            for(int j = 0; j < mazeBFS.length; j ++) {
-                if(mazeBFS[i][j] == 1) {
+        for(int i = 0; i < mazeSearched.length; i ++) {
+            for(int j = 0; j < mazeSearched.length; j ++) {
+                if(mazeSearched[i][j] == 1) {
                     numNodesExplored ++;
                 }
             }
         }
         //System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for BFS
 
-        if(print) {
-            printMaze(mazeBFS);
-        }
         return new PathInfo(null, numNodesExplored);
     }
 
@@ -472,11 +462,11 @@ public class Main {
      * h(n) is an estimated distance from n to goal.
      * @return True if goal is reachable; false otherwise.
      */
-    public static PathInfo AStarMaze(boolean print) {
-        int[][] mazeAStar = copyMaze();
-        Index[][] indexMaze = new Index[mazeAStar.length][mazeAStar[0].length];
+    public static PathInfo AStarMaze() {
+        mazeSearched = copyMaze();
+        Index[][] indexMaze = new Index[mazeSearched.length][mazeSearched[0].length];
         PriorityQueue<Index> minHeap = new PriorityQueue<Index>();
-        mazeAStar[0][0] = 1; // Mark start visited.
+        mazeSearched[0][0] = 1; // Mark start visited.
         indexMaze[0][0] = new Index(0, 0, 0, null);
         minHeap.add(new Index(0, 0, 0, null));  // Add start to queue.
         
@@ -485,10 +475,10 @@ public class Main {
             Index item = minHeap.remove();  // Remove item from queue.
 
             // If goal ...
-            if(item.getRow() == mazeAStar.length - 1 && item.getCol() == mazeAStar.length - 1) {
-                //printMazeASCII(mazeAStar); // DEBUG
+            if(item.getRow() == mazeSearched.length - 1 && item.getCol() == mazeSearched.length - 1) {
+                //printMazeASCII(mazeSearched); // DEBUG
                 ArrayList<Index> shortestPath = new ArrayList<Index>();
-                Index current = indexMaze[mazeAStar.length - 1][mazeAStar.length - 1];
+                Index current = indexMaze[mazeSearched.length - 1][mazeSearched.length - 1];
 
                 //Determine the exact route of the shortest path.
                 while(current.getRow() != 0 || current.getCol() != 0) {
@@ -500,39 +490,33 @@ public class Main {
 
                 //Determine the number of nodes visited by A*.
                 int numNodesExplored = 0;
-                for(int i = 0; i < mazeAStar.length; i ++) {
-                    for(int j = 0; j < mazeAStar.length; j ++) {
-                        if(mazeAStar[i][j] == 1) {
+                for(int i = 0; i < mazeSearched.length; i ++) {
+                    for(int j = 0; j < mazeSearched.length; j ++) {
+                        if(mazeSearched[i][j] == 1) {
                             numNodesExplored ++;
                         }
                     }
                 }
                 // System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for A*
 
-                if(print) {
-                    printMaze(mazeAStar);
-                }
                 return new PathInfo(shortestPath, numNodesExplored);
             }
 
             // Check neighbors of item.
-            AStarCheckNeighbors(mazeAStar, indexMaze, item, minHeap);
+            AStarCheckNeighbors(mazeSearched, indexMaze, item, minHeap);
         }
 
-        //printMaze(mazeAStar); // DEBUG
+        //printMaze(mazeSearched); // DEBUG
         int numNodesExplored = 0;
-        for(int i = 0; i < mazeAStar.length; i ++) {
-            for(int j = 0; j < mazeAStar.length; j ++) {
-                if(mazeAStar[i][j] == 1) {
+        for(int i = 0; i < mazeSearched.length; i ++) {
+            for(int j = 0; j < mazeSearched.length; j ++) {
+                if(mazeSearched[i][j] == 1) {
                     numNodesExplored ++;
                 }
             }
         }
         //System.out.println("# Nodes Explored: " + numNodesExplored); //Use for extracting data for A*
 
-        if(print) {
-            printMaze(mazeAStar);
-        }
         return new PathInfo(null, numNodesExplored);
     }
 
@@ -649,6 +633,37 @@ public class Main {
     }
 
     /**
+     * Prints ASCII representation of current maze to output.txt.
+     * @param maze - Maze to print.
+     */
+    public static void printMazeASCIIToOutput(int[][] maze) {
+        try {
+            File file = new File("./output.txt");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+
+            for(int row = 0; row < maze.length; row++) {
+                for(int col = 0; col < maze[row].length; col++) {
+                    
+                    if(maze[row][col] == 0) {
+                        writer.write("░░");
+                    } else if(maze[row][col] == 1) {
+                        writer.write("▓▓");
+                    } else if(maze[row][col] == 2) {
+                        writer.write("██");
+                    } else {    // Everything else for now.
+                        writer.write(maze[row][col] + " ");
+                    }
+                }
+                writer.write("\n");
+            }
+
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("An error occurred on writing file to output.txt!");
+        }
+    }
+
+    /**
      * Method that implements Strategy One of stepping through the maze.
      * @param q - The flammability.
      * @return true if the agent reaches the end, false otherwise.
@@ -662,7 +677,7 @@ public class Main {
         PathInfo pathInfo;
         do {
             generateMaze(100, 0.3, true);
-            pathInfo = BFSMaze(false);
+            pathInfo = BFSMaze();
         } while(pathInfo.getShortestPath() == null);
         //printMaze(maze); //debug
 
@@ -704,7 +719,7 @@ public class Main {
         PathInfo pathInfo;
         do {
             generateMaze(100, 0.3, true);
-            pathInfo = BFSMaze(false);
+            pathInfo = BFSMaze();
         } while(pathInfo.getShortestPath() == null);
 
         Index agent = new Index(0, 0);
@@ -752,10 +767,12 @@ public class Main {
 
         String help = "Commands\nq | quit: quit the program\n" 
             + "g: generate new maze\np | print: print maze\nr: a reference for values printed by 'p' or 'print'\n"
-            + "pr: print readable version of maze\ndfs: run DFS on maze\n"
-            + "bfs: run BFS on maze\na | a*: run A* on maze\n"
-            + "strat1: run strategy 1 on maze\nstrat2: run strategy 2 on maze\nstrat3: run strategy 3 on maze\n"
-            + "h | help: show this list again\nh [g|p|print|pr] | help [g|p|print|pr]: get more info on command";
+            + "pr: print readable version of maze (creates output.txt)\ndfs: run DFS on maze\n"
+            + "bfs: run BFS on maze\na: run A* on maze\n"
+            + "p[dfs | bfs | a]: runs respective search algorithm on maze and prints result\n"
+            + "pr[dfs | bfs | a]: runs respective search algorithm on maze and prints readable result (creates output.txt)\n"
+            + "strat[1 | 2 | 3]: run strategy 1, 2, or 3 on the maze\n"
+            + "h | help: show this list again\nh [g | p | print | pr] | help [g | p | print | pr]: get more info on command";
 
         System.out.println(help + "\n");
 
@@ -803,39 +820,55 @@ public class Main {
             } else if(command.equalsIgnoreCase("pr")) { // Print maze (readable).
                 System.out.println("Original maze:");
                 printMazeASCII(maze);
+                printMazeASCIIToOutput(maze);
                 System.out.println();
-            } else if(command.equalsIgnoreCase("dfs")) {    // DFS
-                System.out.println("Depth-First Search (DFS):");
-                System.out.println("Print result? (y/n): ");
-                String answer = sc.nextLine();
-
+            } else if(command.equalsIgnoreCase("dfs") || command.equalsIgnoreCase("pdfs") || command.equalsIgnoreCase("prdfs")) {    // DFS
                 startTime = System.nanoTime();
-                DFSMaze(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes"));
+                boolean res = DFSMaze();
                 endTime = System.nanoTime();
 
+                System.out.println("Depth-First Search (DFS): " + res);
                 System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
-                System.out.println();
-            } else if(command.equalsIgnoreCase("bfs")) {    // BFS
-                System.out.println("Breadth-First Search (BFS):");
-                System.out.println("Print result? (y/n): ");
-                String answer = sc.nextLine();
 
+                if(command.equalsIgnoreCase("pdfs")) {
+                    printMaze(mazeSearched);
+                } else if(command.equalsIgnoreCase("prdfs")) {
+                    printMazeASCII(mazeSearched);
+                    printMazeASCIIToOutput(mazeSearched);
+                }
+                
+                System.out.println();
+            } else if(command.equalsIgnoreCase("bfs") || command.equalsIgnoreCase("pbfs") || command.equalsIgnoreCase("prbfs")) {    // BFS
                 startTime = System.nanoTime();
-                BFSMaze(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes"));
+                PathInfo res = BFSMaze();
                 endTime = System.nanoTime();
 
+                System.out.println("Breadth-First Search (BFS): " + !(res == null));
                 System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
-                System.out.println();
-            } else if(command.equalsIgnoreCase("a") || command.equalsIgnoreCase("a*")) {    // A*
-                System.out.println("A* Search:");
-                System.out.println("Print result? (y/n): ");
-                String answer = sc.nextLine();
+                
+                if(command.equalsIgnoreCase("pbfs")) {
+                    printMaze(mazeSearched);
+                } else if(command.equalsIgnoreCase("prbfs")) {
+                    printMazeASCII(mazeSearched);
+                    printMazeASCIIToOutput(mazeSearched);
+                }
 
+                System.out.println();
+            } else if(command.equalsIgnoreCase("a") || command.equalsIgnoreCase("pa") || command.equalsIgnoreCase("pra")) {    // A*
                 startTime = System.nanoTime();
-                AStarMaze(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes"));
+                PathInfo res = AStarMaze();
                 endTime = System.nanoTime();
 
+                System.out.print("A* Search: " + !(res == null));
                 System.out.println(String.format("Time elapsed: %.3f s", (float)(endTime - startTime)/1000000000));
+
+                if(command.equalsIgnoreCase("pa")) {
+                    printMaze(mazeSearched);
+                } else if(command.equalsIgnoreCase("pra")) {
+                    printMazeASCII(mazeSearched);
+                    printMazeASCIIToOutput(mazeSearched);
+                }
+
                 System.out.println();
             } else if(command.equalsIgnoreCase("strat1") || command.equalsIgnoreCase("strat2") || command.equalsIgnoreCase("strat2")) { // Strategies
                 try {
@@ -868,11 +901,13 @@ public class Main {
             } else if(command.equalsIgnoreCase("h p") || command.equalsIgnoreCase("help p") || command.equalsIgnoreCase("help p") || command.equalsIgnoreCase("help print")) {
                 System.out.println("This command will print the maze that has been generated by the program in its default/original state.");
                 System.out.println("The numbers indicates the type of space. Type 'r' for a reference on the values.");
+                System.out.println("NOT RECOMMENDED FOR USE ON LARGE MAZES.");
             } else if(command.equalsIgnoreCase("h pr") || command.equalsIgnoreCase("help pr")) {
                 System.out.println("This command will print the maze as something more graphical than the regular print, using special ASCII characters to represent the spaces.");
-                System.out.println("ASCII characters may not be represented properly in the terminal or IDE depending on the font. Consider outputting the console outputs to a text file to see.");
+                System.out.println("ASCII characters may not be represented properly in the terminal or IDE depending on the font. Consider funneling the console outputs to a text file if that is the case.");
+                System.out.println("NOT RECOMMENDED FOR USE ON LARGE MAZES.");
             } else {    // Invalid commands
-                System.out.println("Invalid command! Type 'h' or 'help' for a list of valid commands.\nType 'q' or 'quit' to quit the program.\n");
+                System.out.println("Invalid command! Make note of spaces in commands. Type 'h' or 'help' for a list of valid commands.\nType 'q' or 'quit' to quit the program.\n");
             }
         }
 
